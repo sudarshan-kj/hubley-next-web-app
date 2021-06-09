@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  padding: 0 40px;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #0070f3;
+  color: white;
+  transition: 0.5s;
+}
+
+.links {
+  display: flex;
+}
+
+.links li {
+  list-style: none;
+  padding: 0 20px;
+}
