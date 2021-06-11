@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Event = (props) => (
   <div>
     <h1>Event page</h1>
