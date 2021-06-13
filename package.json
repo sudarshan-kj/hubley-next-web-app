@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.3.0",
     "cookie": "^0.4.1",
     "framer-motion": "^4.1.17",
+    "mongodb": "^3.6.9",
     "mongoose": "^5.12.13",
     "next": "10.2.3",
     "next-auth": "^3.26.1",
