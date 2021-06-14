@@ -1,5 +1,5 @@
 {
-  "name": "with-chakra-ui-typescript",
+  "name": "hubley-next-web-app",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
