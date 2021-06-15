@@ -1,8 +1,7 @@
 import Link from "next/link";
-import styles from "@styles/Header.module.css";
 import { useEffect, useState } from "react";
 
-const Header = () => {
+export const Header = () => {
   const [headerBg, setHeaderBg] = useState("#0070f3");
 
   useEffect(() => {
@@ -18,12 +17,12 @@ const Header = () => {
   }, []);
 
   return (
-    <div style={{ background: headerBg }} className={styles.container}>
-      <div className={styles.logo}>
+    <div style={{ background: headerBg }}>
+      <div>
         <h1>Logo</h1>
       </div>
-      <nav className={styles.navBar}>
-        <ul className={styles.links}>
+      <nav>
+        <ul>
           <li>
             <Link href="/">
               <a>Home</a>
@@ -42,5 +41,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;
