@@ -11,7 +11,7 @@ const Signup = () => {
   }
 
   return (
-    <Flex direction={{ md: "row" }} minH="80vh" h="100vh">
+    <Flex direction={["column", "row"]} minH="80vh" h="100vh">
       <SideSection
         headingName="Signup"
         w={["100%", `${leftSectionWidthAndHeight}%`]}
