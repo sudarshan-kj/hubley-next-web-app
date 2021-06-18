@@ -3,11 +3,15 @@ import theme from "../theme";
 import { AppProps } from "next/app";
 import AuthProvider from "../utils/AuthProvider";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: any) {
+  const ComponentWLayout = Component.withLayout
+    ? Component.withLayout
+    : Component;
+
   return (
     <ChakraProvider resetCSS theme={theme}>
       <AuthProvider>
-        <Component {...pageProps} />
+        <ComponentWLayout {...pageProps} />
       </AuthProvider>
     </ChakraProvider>
   );
