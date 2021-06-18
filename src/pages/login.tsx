@@ -8,7 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 
 const Login = () => {
-  const leftSectionWidthAndHeight = 45;
+  const leftSectionWidthAndHeight = 35;
   function getDifference(input: number): number {
     return 100 - input;
   }

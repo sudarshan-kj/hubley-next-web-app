@@ -1,4 +1,4 @@
-import { Center, Heading, Text, Stack } from "@chakra-ui/layout";
+import { Center, Box, Heading, Text, Stack } from "@chakra-ui/layout";
 import { Icon } from "@chakra-ui/icon";
 import { AiFillHome as HomeIcon } from "react-icons/ai";
 import Logo from "-!svg-react-loader!../../assets/logo.svg";
@@ -24,6 +24,13 @@ const SideSection = ({ headingName, ...rest }) => {
           />
         </VStack>
       </Center>
+      <Box
+        borderBottom="50vh solid transparent"
+        borderTop="50vh solid transparent"
+        borderLeft="150px solid var(--chakra-colors-brand-500)"
+        height={0}
+        transform={["rotate(90deg)", "rotate(0deg)"]}
+      />
       <Link href="/">
         <a>
           <Stack

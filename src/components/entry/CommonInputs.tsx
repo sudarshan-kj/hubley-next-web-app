@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Center } from "@chakra-ui/layout";
-import { Button, VStack } from "@chakra-ui/react";
+import { Center, Box, Button, VStack, Divider, Text } from "@chakra-ui/react";
 import { InputFieldWithLabel } from "../inputs";
 import { useAuth } from "../../utils/AuthProvider";
 
@@ -32,7 +31,7 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
           w="100%"
           size="lg"
           fontSize="xl"
-          isLoading={true}
+          isLoading={false}
           onClick={() =>
             buttonName === "Login"
               ? login(email, password)
@@ -41,6 +40,21 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
         >
           {buttonName}
         </Button>
+        <Box py={3} w="100%" position="relative">
+          <Divider />
+          <Text
+            display="inline"
+            pos="absolute"
+            bottom="0px"
+            background="white"
+            px={8}
+            transform="translateX(-50%)"
+            left="50%"
+          >
+            or
+          </Text>
+        </Box>
+
         {children}
       </VStack>
     </Center>

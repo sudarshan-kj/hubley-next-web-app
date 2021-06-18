@@ -15,7 +15,7 @@ interface FirebaseUser {
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<FirebaseUser>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Box, Text, Flex } from "@chakra-ui/layout";
 
 const Signup = () => {
-  const leftSectionWidthAndHeight = 45;
+  const leftSectionWidthAndHeight = 35;
   function getDifference(input: number): number {
     return 100 - input;
   }

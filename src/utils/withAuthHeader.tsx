@@ -1,9 +1,9 @@
-import { Box, Flex, Stack, Button, Spacer } from "@chakra-ui/react";
+import { Box, Flex, Stack, Button, Spacer, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Icon } from "@chakra-ui/icon";
 import Logo from "-!svg-react-loader!../assets/logo.svg";
+import { useAuth } from "./AuthProvider";
 
 const initScrollState = {
   bgColor: "transparent",
@@ -12,7 +12,7 @@ const initScrollState = {
 
 const withAuthHeader = (Component) => () => {
   const [styleOnScroll, setStyleOnScoll] = useState(initScrollState);
-  const router = useRouter();
+  const { currentUser, logout } = useAuth();
 
   useEffect(() => {
     function listenToScrollEvent() {
@@ -58,16 +58,14 @@ const withAuthHeader = (Component) => () => {
           </Stack>
           <Spacer />
           <Stack direction={["column", "row"]} spacing="24px" align="center">
-            <Link href="/login">
-              <Button fontSize="xl">Login</Button>
-            </Link>
-            <Link href="/signup">
-              <Button fontSize="xl">Signup</Button>
-            </Link>
+            <Text>Logged in as {currentUser && currentUser.name}</Text>
+            <Button fontSize="xl" onClick={() => logout()}>
+              Logout
+            </Button>
           </Stack>
         </Flex>
       </Box>
-      <Box>
+      <Box p={4}>
         <Component />
       </Box>
     </>
