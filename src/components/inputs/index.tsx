@@ -8,18 +8,20 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-export const InputField = ({ label }) => {
+export const InputFieldWithLabel = ({ label, onChange, value }) => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+
   return (
-    <VStack w="100%" spacing={2} align="flex-start">
+    <VStack w="100%" spacing={2} align="flex-start" mt={24}>
       <Text fontWeight="extrabold">{label}</Text>
       {label === "password" ? (
         <InputGroup size="md">
           <Input
             size="lg"
             type={show ? "text" : "password"}
-            placeholder="Enter password"
+            value={value}
+            onChange={onChange}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="md" variant="ghost" onClick={handleClick}>
@@ -28,7 +30,7 @@ export const InputField = ({ label }) => {
           </InputRightElement>
         </InputGroup>
       ) : (
-        <Input type={label} size="lg" />
+        <Input type={label} size="lg" value={value} onChange={onChange} />
       )}
     </VStack>
   );

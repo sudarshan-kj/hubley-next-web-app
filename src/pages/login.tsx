@@ -18,19 +18,19 @@ const Login = () => {
       <SideSection
         headingName="Login"
         w={["100%", `${leftSectionWidthAndHeight}%`]}
-        h={["50%", "100%"]}
+        h={["35%", "100%"]}
       />
 
       <CommonInputs
         buttonName="Login"
         w={["100%", `${getDifference(leftSectionWidthAndHeight)}%`]}
-        h={["50%", "100%"]}
+        h={["65%", "100%"]}
       >
         <Button
           leftIcon={<FcGoogle />}
           w="100%"
           size="lg"
-          fontSize="xl"
+          fontSize="calc(0.4vw + 0.9rem )"
           variant="outline"
         >
           Login with Google
@@ -39,7 +39,7 @@ const Login = () => {
           leftIcon={<FaFacebook />}
           w="100%"
           size="lg"
-          fontSize="xl"
+          fontSize="calc(0.4vw + 0.9rem )"
           variant="outline"
         >
           Login with Facebook
@@ -48,7 +48,7 @@ const Login = () => {
           Already have an account?{" "}
           <Link href="/signup">
             <a>
-              <Box color="brand.500" display="inline">
+              <Box as="span" color="brand.500">
                 Signup
               </Box>
             </a>

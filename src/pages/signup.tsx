@@ -15,18 +15,19 @@ const Signup = () => {
       <SideSection
         headingName="Signup"
         w={["100%", `${leftSectionWidthAndHeight}%`]}
-        h={["50%", "100%"]}
+        h={["35%", "100%"]}
       />
       <CommonInputs
         buttonName="Signup"
         w={["100%", `${getDifference(leftSectionWidthAndHeight)}%`]}
-        h={["50%", "100%"]}
+        h={["55%", "100%"]}
       >
         <Text fontSize="lg" fontWeight="bold" color="gray.500">
           Already have an account?{" "}
           <Link href="/login">
             <a>
-              <Box color="brand.500" display="inline">
+              {/* If you do not make the following as a 'span' React will error out with: "<div> cannot appear inside <p>" */}
+              <Box as="span" color="brand.500" display="inline">
                 Login
               </Box>
             </a>
