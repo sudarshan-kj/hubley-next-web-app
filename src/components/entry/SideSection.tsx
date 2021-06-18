@@ -25,23 +25,32 @@ const SideSection = ({ headingName, ...rest }) => {
         </VStack>
       </Center>
       <Box
-        borderBottom="50vh solid transparent"
-        borderTop="50vh solid transparent"
-        borderLeft="150px solid var(--chakra-colors-brand-500)"
+        borderBottom={["0", "50vh solid transparent"]}
+        borderTop={[
+          "30px solid  var(--chakra-colors-brand-500)",
+          "50vh solid transparent",
+        ]}
+        borderLeft={[
+          "50vw solid transparent",
+          "150px solid var(--chakra-colors-brand-500)",
+        ]}
+        borderRight={["50vw solid transparent", "0"]}
         height={0}
-        transform={["rotate(90deg)", "rotate(0deg)"]}
+        width={0}
       />
       <Link href="/">
         <a>
           <Stack
             align="center"
-            direction="row"
+            direction={["column", "row"]}
             pos="absolute"
-            top="10"
-            left="10"
+            top={["4", "10"]}
+            left={["4", "10"]}
           >
-            <Icon as={HomeIcon} fill="white" boxSize={8} />
-            <Text color="white">Go Home</Text>
+            <Icon as={HomeIcon} fill="white" boxSize={[4, 8]} />
+            <Text color="white" fontSize={["12px", "md"]}>
+              Go Home
+            </Text>
           </Stack>
         </a>
       </Link>

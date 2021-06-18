@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { auth, googleProvider, fbProvider } from "./initFirebase";
 import { Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { Center } from "@chakra-ui/react";
 
 const AuthContext = React.createContext(null);
 
@@ -60,13 +61,15 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={value}>
       {loading ? (
-        <Spinner
-          thickness="4px"
-          speed="0.40s"
-          emptyColor="gray.200"
-          color="brand.500"
-          size="xl"
-        />
+        <Center h="100vh">
+          <Spinner
+            thickness="4px"
+            speed="0.40s"
+            emptyColor="gray.200"
+            color="brand.500"
+            size="xl"
+          />
+        </Center>
       ) : (
         children
       )}
