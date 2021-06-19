@@ -64,7 +64,7 @@ const WithAuthHeader = ({ component: Component }) => {
   });
 
   React.useEffect(() => {
-    if (!currentUser) router.push("/login");
+    if (!currentUser) router.push("/auth/login");
   }, [currentUser]);
 
   if (!currentUser) {

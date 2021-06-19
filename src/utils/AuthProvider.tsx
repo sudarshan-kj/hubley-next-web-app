@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) router.push("/events");
       setCurrentUser(user);
       console.log("Current user is", user);
       setLoading(false);
@@ -48,8 +49,18 @@ const AuthProvider = ({ children }) => {
     return currentUser.updatePassword(password);
   }
 
+  function signInWithGoogle() {
+    return auth.signInWithRedirect(googleProvider);
+  }
+
+  function signInWithFacebook() {
+    return auth.signInWithPopup(fbProvider);
+  }
+
   const value = {
     currentUser,
+    signInWithGoogle,
+    signInWithFacebook,
     signup,
     login,
     logout,

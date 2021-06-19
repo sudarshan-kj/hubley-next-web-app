@@ -1,5 +1,5 @@
-import SideSection from "../components/entry/SideSection";
-import CommonInputs from "../components/entry/CommonInputsSection";
+import SideSection from "../../components/entry/SideSection";
+import CommonInputs from "../../components/entry/CommonInputsSection";
 import React from "react";
 import Link from "next/link";
 import { Box, Text, Flex } from "@chakra-ui/layout";
@@ -24,7 +24,7 @@ const Signup = () => {
       >
         <Text fontSize="lg" fontWeight="bold" color="gray.500">
           Already have an account?{" "}
-          <Link href="/login">
+          <Link href="/auth/login">
             <a>
               {/* If you do not make the following as a 'span' React will error out with: "<div> cannot appear inside <p>" */}
               <Box as="span" color="brand.500" display="inline">

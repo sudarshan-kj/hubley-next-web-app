@@ -58,12 +58,12 @@ const GenericHeader = ({ component: Component }) => {
           </Stack>
           <Spacer />
           <Stack direction={["column", "row"]} spacing="24px" align="center">
-            <Link href="/login">
+            <Link href="/auth/login">
               <Button fontSize="xl" variant="ghost" color="black">
                 Login
               </Button>
             </Link>
-            <Link href="/signup">
+            <Link href="/auth/signup">
               <Button fontSize="xl">Signup</Button>
             </Link>
           </Stack>

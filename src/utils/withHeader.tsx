@@ -8,7 +8,7 @@ const UnAuthorizedContent = () => (
   <Center h="80vh" fontSize="2xl" color="brand.500" fontWeight="bold">
     <p>
       Please{" "}
-      <Link href="/login">
+      <Link href="/auth/login">
         <Box
           as="a"
           textDecoration="underline"
