@@ -18,23 +18,23 @@ import { FC } from "react";
 
 interface InputFieldProps {
   label: string;
-  onChange(event: any): void;
+  onChange: (event: any) => void;
   value: string;
   error?: string;
   showForgotPassword?: boolean;
+  handleForgotPassword?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-export const InputFieldWithLabel: FC<InputFieldProps> = ({
+const InputFieldWithLabel: FC<InputFieldProps> = ({
   label,
   onChange,
   value,
   error,
   showForgotPassword,
+  handleForgotPassword,
 }) => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-
-  const handleForgotPassword = () => console.log("Clicked forgot password");
 
   return (
     <VStack w="100%" spacing={2} align="flex-start" mt={24}>
@@ -86,3 +86,5 @@ export const InputFieldWithLabel: FC<InputFieldProps> = ({
     </VStack>
   );
 };
+
+export default InputFieldWithLabel;

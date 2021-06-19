@@ -1,6 +1,14 @@
 import { useState } from "react";
-import { Center, Box, Button, VStack, Divider, Text } from "@chakra-ui/react";
-import { InputFieldWithLabel } from "../inputs";
+import {
+  Center,
+  Box,
+  Button,
+  VStack,
+  Divider,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import InputFieldWithLabel from "../inputs/InputFieldWithLabel";
 import { useAuth } from "../../utils/AuthProvider";
 
 interface InputField {
@@ -10,13 +18,14 @@ interface InputField {
 
 const CommonInputs = ({ buttonName, children, ...rest }) => {
   const inputFor = buttonName.toLowerCase();
-  const { login, signup } = useAuth();
+  const { login, signup, resetPassword } = useAuth();
   const [email, setEmail] = useState<InputField>({ value: "", error: "" });
   const [password, setPassword] = useState<InputField>({
     value: "",
     error: "",
   });
   const [buttonLoading, setButtonLoading] = useState(false);
+  const toast = useToast();
 
   const hanleOnChangePassword = (event) => {
     setPassword({ value: event.target.value, error: "" });
@@ -27,7 +36,35 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
     setPassword({ ...password, error: "" });
   };
 
-  const handleButtonClick = async (e) => {
+  const handleForgotPassword = async () => {
+    try {
+      await resetPassword(email.value);
+      toast({
+        title: "Password Reset email sent",
+        description:
+          "You will recieve an email if an account has been registered with us.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } catch (e) {
+      switch (e.code) {
+        case "auth/user-not-found":
+        case "auth/invalid-email":
+          toast({
+            title: "Password Reset email sent",
+            description:
+              "You will recieve an email if an account has been registered with us.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+          break;
+      }
+    }
+  };
+
+  const handleSubmitButton = async (e) => {
     e.preventDefault();
     setPassword({ ...password, error: "" });
     setEmail({ ...email, error: "" });
@@ -79,7 +116,7 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
   return (
     <Center {...rest}>
       <VStack w={["90%", "330px"]} mx={10} py={10} spacing={6}>
-        <form style={{ width: "100%" }} onSubmit={handleButtonClick}>
+        <form style={{ width: "100%" }} onSubmit={handleSubmitButton}>
           <VStack spacing={6}>
             <InputFieldWithLabel
               label="email"
@@ -93,6 +130,7 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
               value={password.value}
               error={password.error}
               showForgotPassword={inputFor === "login"}
+              handleForgotPassword={handleForgotPassword}
             />
             <Button
               w="100%"
