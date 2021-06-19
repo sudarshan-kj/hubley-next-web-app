@@ -1,5 +1,5 @@
 import SideSection from "../components/entry/SideSection";
-import CommonInputs from "../components/entry/CommonInputs";
+import CommonInputs from "../components/entry/CommonInputsSection";
 import React from "react";
 import Link from "next/link";
 import { Box, Text, Flex } from "@chakra-ui/layout";
