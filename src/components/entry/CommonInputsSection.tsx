@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import InputFieldWithLabel from "../inputs/InputFieldWithLabel";
 import { useAuth } from "../../utils/AuthProvider";
+import { useRouter } from "next/router";
 
 interface InputField {
   value: string;
@@ -26,6 +27,7 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
   });
   const [buttonLoading, setButtonLoading] = useState(false);
   const toast = useToast();
+  const router = useRouter();
 
   const hanleOnChangePassword = (event) => {
     setPassword({ value: event.target.value, error: "" });
@@ -72,6 +74,7 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
       try {
         setButtonLoading(true);
         await login(email.value, password.value);
+        router.push("/events");
       } catch (e) {
         switch (e.code) {
           case "auth/wrong-password":
@@ -93,7 +96,7 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
       try {
         setButtonLoading(true);
         await signup(email.value, password.value);
-        setButtonLoading(true);
+        router.push("/welcome");
       } catch (e) {
         switch (e.code) {
           case "auth/weak-password":

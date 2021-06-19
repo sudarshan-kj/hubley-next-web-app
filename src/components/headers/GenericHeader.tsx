@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Icon } from "@chakra-ui/icon";
-import Logo from "-!svg-react-loader!../assets/logo.svg";
+import Logo from "-!svg-react-loader!../../assets/logo.svg";
 
 const initScrollState = {
   bgColor: "transparent",
   color: "gray.500",
 };
 
-const withGenericHeader = (Component) => () => {
+const GenericHeader = ({ component: Component }) => {
   const [styleOnScroll, setStyleOnScoll] = useState(initScrollState);
   const router = useRouter();
 
@@ -59,7 +59,9 @@ const withGenericHeader = (Component) => () => {
           <Spacer />
           <Stack direction={["column", "row"]} spacing="24px" align="center">
             <Link href="/login">
-              <Button fontSize="xl">Login</Button>
+              <Button fontSize="xl" variant="ghost" color="black">
+                Login
+              </Button>
             </Link>
             <Link href="/signup">
               <Button fontSize="xl">Signup</Button>
@@ -74,4 +76,4 @@ const withGenericHeader = (Component) => () => {
   );
 };
 
-export default withGenericHeader;
+export default GenericHeader;

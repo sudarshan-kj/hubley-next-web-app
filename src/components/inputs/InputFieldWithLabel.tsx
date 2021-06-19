@@ -9,11 +9,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import {
-  BsEyeFill as ShowPwdIcon,
-  BsEyeSlashFill as HidePwdIcon,
-} from "react-icons/bs";
-import { Icon } from "@chakra-ui/icon";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { FC } from "react";
 
 interface InputFieldProps {
@@ -63,9 +59,9 @@ const InputFieldWithLabel: FC<InputFieldProps> = ({
             <InputRightElement width="4.5rem" mt="0.2rem">
               <Box onClick={handleClick} _hover={{ cursor: "pointer" }}>
                 {show ? (
-                  <Icon as={ShowPwdIcon} boxSize="16px" />
+                  <ViewIcon boxSize="16px" />
                 ) : (
-                  <Icon as={HidePwdIcon} boxSize="16px" />
+                  <ViewOffIcon boxSize="16px" />
                 )}
               </Box>
             </InputRightElement>

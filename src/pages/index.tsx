@@ -1,6 +1,6 @@
 import { Heading } from "@chakra-ui/layout";
-import withGenericHeader from "../utils/withGenericHeader";
+import { withHeader } from "../utils/withHeader";
 
 const Home = () => <Heading>Hello!</Heading>;
 
-export default withGenericHeader(Home);
+export default withHeader(Home);

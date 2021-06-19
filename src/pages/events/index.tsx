@@ -1,5 +1,5 @@
-import { Box, Heading, Center } from "@chakra-ui/layout";
-import withAuthHeader from "../../utils/withAuthHeader";
+import { Heading, Center } from "@chakra-ui/layout";
+import { withPrivateHeader } from "../../utils/withHeader";
 
 const Events = () => {
   return (
@@ -9,4 +9,4 @@ const Events = () => {
   );
 };
 
-export default withAuthHeader(Events);
+export default withPrivateHeader(Events);
