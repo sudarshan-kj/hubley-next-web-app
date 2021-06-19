@@ -14,10 +14,27 @@ import {
   BsEyeSlashFill as HidePwdIcon,
 } from "react-icons/bs";
 import { Icon } from "@chakra-ui/icon";
+import { FC } from "react";
 
-export const InputFieldWithLabel = ({ label, onChange, value }) => {
+interface InputFieldProps {
+  label: string;
+  onChange(event: any): void;
+  value: string;
+  error?: string;
+  showForgotPassword?: boolean;
+}
+
+export const InputFieldWithLabel: FC<InputFieldProps> = ({
+  label,
+  onChange,
+  value,
+  error,
+  showForgotPassword,
+}) => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+
+  const handleForgotPassword = () => console.log("Clicked forgot password");
 
   return (
     <VStack w="100%" spacing={2} align="flex-start" mt={24}>
@@ -25,9 +42,15 @@ export const InputFieldWithLabel = ({ label, onChange, value }) => {
         <>
           <Flex align="center" justify="space-between" w="100%">
             <Text fontWeight="extrabold">{label}</Text>
-            <Button variant="ghost" tabIndex={-1}>
-              forgot?
-            </Button>
+            {showForgotPassword && (
+              <Button
+                variant="ghost"
+                tabIndex={-1}
+                onClick={handleForgotPassword}
+              >
+                forgot?
+              </Button>
+            )}
           </Flex>
 
           <InputGroup size="md">
@@ -47,11 +70,17 @@ export const InputFieldWithLabel = ({ label, onChange, value }) => {
               </Box>
             </InputRightElement>
           </InputGroup>
+          <Text fontWeight="extrabold" color="red.500">
+            {error}
+          </Text>
         </>
       ) : (
         <>
           <Text fontWeight="extrabold">{label}</Text>
           <Input type={label} size="lg" value={value} onChange={onChange} />
+          <Text fontWeight="extrabold" color="red.500">
+            {error}
+          </Text>
         </>
       )}
     </VStack>
