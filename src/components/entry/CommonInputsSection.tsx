@@ -51,6 +51,7 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
       });
     } catch (e) {
       switch (e.code) {
+        //we send the same response as success to the user so that a user's presence is not exposed
         case "auth/user-not-found":
         case "auth/invalid-email":
           toast({
@@ -74,7 +75,6 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
       try {
         setButtonLoading(true);
         await login(email.value, password.value);
-        router.push("/events");
       } catch (e) {
         switch (e.code) {
           case "auth/wrong-password":
@@ -96,7 +96,6 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
       try {
         setButtonLoading(true);
         await signup(email.value, password.value);
-        router.push("/welcome");
       } catch (e) {
         switch (e.code) {
           case "auth/weak-password":

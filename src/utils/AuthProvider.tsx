@@ -12,6 +12,7 @@ export function useAuth() {
 
 interface FirebaseUser {
   updatePassword(value: string): any;
+  sendEmailVerification(): any;
 }
 
 const AuthProvider = ({ children }) => {
@@ -21,7 +22,16 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) router.push("/events");
+      if (user)
+        if (user.emailVerified) {
+          router.push("/users/sudi");
+        } else {
+          router.push("/verifyEmail");
+        }
+      else {
+        router.push("/");
+      }
+      console.log("Email is not verified");
       setCurrentUser(user);
       console.log("Current user is", user);
       setLoading(false);
@@ -30,7 +40,27 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   function signup(email: string, password: string) {
-    return auth.createUserWithEmailAndPassword(email, password);
+    return auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(function (credential) {
+        console.log("User After signup is", credential);
+        if (credential && credential.user.emailVerified === false) {
+          credential.user
+            .sendEmailVerification({
+              url: "http://localhost:3000",
+            })
+            .then(function () {
+              console.log("email verification sent to user");
+            });
+        }
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        console.log(errorCode, errorMessage);
+      });
   }
 
   function login(email: string, password: string) {
@@ -49,8 +79,12 @@ const AuthProvider = ({ children }) => {
     return currentUser.updatePassword(password);
   }
 
+  function sendEmailVerification() {
+    return currentUser.sendEmailVerification();
+  }
+
   function signInWithGoogle() {
-    return auth.signInWithRedirect(googleProvider);
+    return auth.signInWithPopup(googleProvider);
   }
 
   function signInWithFacebook() {
@@ -66,6 +100,7 @@ const AuthProvider = ({ children }) => {
     logout,
     resetPassword,
     updatePassword,
+    sendEmailVerification,
   };
 
   return (
