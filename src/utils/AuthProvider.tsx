@@ -53,14 +53,7 @@ const AuthProvider = ({ children }) => {
               console.log("email verification sent to user");
             });
         }
-      })
-      .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-        console.log(errorCode, errorMessage);
-      });
+      }); //catch is removed so that it is handled in the await code block under common input section
   }
 
   function login(email: string, password: string) {

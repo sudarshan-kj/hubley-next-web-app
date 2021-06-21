@@ -4,7 +4,7 @@ import Router from "next/router";
 import AuthProvider from "../utils/AuthProvider";
 import Head from "next/head";
 import NProgress from "nprogress";
-import "../public/nprogress.css";
+import "../styles/nprogress.css";
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
