@@ -11,7 +11,6 @@ import {
 import TextInputField from "../inputs/TextInputField";
 import PasswordInputField from "../inputs/PasswordInputField";
 import { useAuth } from "../../utils/AuthProvider";
-import { useRouter } from "next/router";
 
 interface InputField {
   value: string;
