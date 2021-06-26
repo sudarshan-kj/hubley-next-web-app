@@ -6,19 +6,19 @@ import { AddIcon, Search2Icon } from "@chakra-ui/icons";
 import TextInputField from "../components/inputs/TextInputField";
 
 const Home = () => (
-  <Box px={20} py={20}>
+  <Box px={40} py={20}>
     <VStack spacing={100}>
       <Flex direction={["column", "row"]}>
         <Center flex="3" flexDirection="column">
           <VStack spacing="10">
-            <Heading fontSize="6xl">
+            <Heading fontSize={["3xl", "6xl"]}>
               Hubley. Leading Virtual Events Manager.
             </Heading>
             <HStack alignSelf="flex-start" spacing={6}>
               <Button
                 leftIcon={<AddIcon boxSize="4" />}
                 size="lg"
-                fontSize="2xl"
+                fontSize={["xl", "2xl"]}
               >
                 Create Event
               </Button>

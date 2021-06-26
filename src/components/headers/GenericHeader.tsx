@@ -1,9 +1,8 @@
 import { Box, Flex, Stack, Button, Spacer } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Icon } from "@chakra-ui/icon";
-import Logo from "-!svg-react-loader!../../assets/logo.svg";
+const Logo = require("-!svg-react-loader!../../assets/logo.svg");
 
 const initScrollState = {
   bgColor: "transparent",

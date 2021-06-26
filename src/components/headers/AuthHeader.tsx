@@ -7,10 +7,10 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import React, { FC, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@chakra-ui/icon";
-import Logo from "-!svg-react-loader!../../assets/logo.svg";
+const Logo = require("-!svg-react-loader!../../assets/logo.svg");
 import { useAuth } from "../../utils/AuthProvider";
 import { useRouter } from "next/router";
 
