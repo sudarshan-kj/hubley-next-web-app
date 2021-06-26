@@ -8,7 +8,8 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import InputFieldWithLabel from "../inputs/InputFieldWithLabel";
+import TextInputField from "../inputs/TextInputField";
+import PasswordInputField from "../inputs/PasswordInputField";
 import { useAuth } from "../../utils/AuthProvider";
 import { useRouter } from "next/router";
 
@@ -17,7 +18,7 @@ interface InputField {
   error: string;
 }
 
-const CommonInputs = ({ buttonName, children, ...rest }) => {
+const CommonInputsSection = ({ buttonName, children, ...rest }) => {
   const inputFor = buttonName.toLowerCase();
   const { login, signup, resetPassword } = useAuth();
   const [email, setEmail] = useState<InputField>({ value: "", error: "" });
@@ -27,7 +28,6 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
   });
   const [buttonLoading, setButtonLoading] = useState(false);
   const toast = useToast();
-  const router = useRouter();
 
   const hanleOnChangePassword = (event) => {
     setPassword({ value: event.target.value, error: "" });
@@ -120,13 +120,13 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
       <VStack w={["90%", "330px"]} mx={10} py={10} spacing={6}>
         <form style={{ width: "100%" }} onSubmit={handleSubmitButton}>
           <VStack spacing={6}>
-            <InputFieldWithLabel
+            <TextInputField
               label="email"
               onChange={hanleOnChangeEmail}
               value={email.value}
               error={email.error}
             />
-            <InputFieldWithLabel
+            <PasswordInputField
               label="password"
               onChange={hanleOnChangePassword}
               value={password.value}
@@ -165,4 +165,4 @@ const CommonInputs = ({ buttonName, children, ...rest }) => {
   );
 };
 
-export default CommonInputs;
+export default CommonInputsSection;

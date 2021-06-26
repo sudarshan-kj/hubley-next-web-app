@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user)
         if (user.emailVerified) {
-          router.push("/users/sudi");
+          router.push("/");
         } else {
           router.push("/verifyEmail");
         }

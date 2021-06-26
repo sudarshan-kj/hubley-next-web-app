@@ -87,6 +87,7 @@ const WithAuthHeader = ({ component: Component }) => {
         transition="0.5s all"
         px={10}
         py={6}
+        zIndex={100}
       >
         <Flex>
           <Stack

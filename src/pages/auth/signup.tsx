@@ -1,5 +1,5 @@
 import SideSection from "../../components/entry/SideSection";
-import CommonInputs from "../../components/entry/CommonInputsSection";
+import CommonInputsSection from "../../components/entry/CommonInputsSection";
 import React from "react";
 import Link from "next/link";
 import { Box, Text, Flex } from "@chakra-ui/layout";
@@ -17,7 +17,7 @@ const Signup = () => {
         w={["100%", `${leftSectionWidthAndHeight}%`]}
         h={["35%", "100%"]}
       />
-      <CommonInputs
+      <CommonInputsSection
         buttonName="Signup"
         w={["100%", `${getDifference(leftSectionWidthAndHeight)}%`]}
         h={["55%", "100%"]}
@@ -33,7 +33,7 @@ const Signup = () => {
             </a>
           </Link>
         </Text>
-      </CommonInputs>
+      </CommonInputsSection>
     </Flex>
   );
 };

@@ -3,10 +3,11 @@ import { VStack } from "@chakra-ui/react";
 import { withHeader } from "../utils/withHeader";
 import Image from "next/image";
 import { AddIcon, Search2Icon } from "@chakra-ui/icons";
+import TextInputField from "../components/inputs/TextInputField";
 
 const Home = () => (
   <Box px={20} py={20}>
-    <VStack>
+    <VStack spacing={100}>
       <Flex direction={["column", "row"]}>
         <Center flex="3" flexDirection="column">
           <VStack spacing="10">
@@ -35,11 +36,41 @@ const Home = () => (
         <Center flex="4">
           <Image
             alt="Mountains"
-            src="/test.png"
+            src="/event-cards.png"
             height="500px"
             width="640px"
             layout="intrinsic"
           />
+        </Center>
+      </Flex>
+      <Flex direction={["column", "row"]}>
+        <Center>
+          <Image
+            alt="events"
+            src="/event-platforms.png"
+            height="465"
+            width="900"
+            layout="intrinsic"
+          />
+        </Center>
+        <Center>
+          <Heading fontSize="6xl">
+            Find events across all major platforms.
+          </Heading>
+        </Center>
+      </Flex>
+      <Flex direction={["column", "row"]} bg="brand.500" width="100%">
+        <Center>
+          <TextInputField
+            label="name"
+            onChange={() => console.log("Value is being changed")}
+            value="contact name"
+          />
+        </Center>
+        <Center>
+          <Heading fontSize="6xl">
+            Find events across all major platforms.
+          </Heading>
         </Center>
       </Flex>
     </VStack>
