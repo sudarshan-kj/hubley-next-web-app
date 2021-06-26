@@ -7,12 +7,13 @@ import Logo from "-!svg-react-loader!../../assets/logo.svg";
 
 const initScrollState = {
   bgColor: "transparent",
-  color: "gray.500",
+  color: "gray.700",
+  loginColor: "black",
+  signUpBgColor: "brand.500",
 };
 
 const GenericHeader = ({ component: Component }) => {
   const [styleOnScroll, setStyleOnScoll] = useState(initScrollState);
-  const router = useRouter();
 
   useEffect(() => {
     function listenToScrollEvent() {
@@ -20,6 +21,8 @@ const GenericHeader = ({ component: Component }) => {
         setStyleOnScoll({
           bgColor: "brand.500",
           color: "white",
+          loginColor: "white",
+          signUpBgColor: "brand.600",
         });
         return;
       }
@@ -60,12 +63,19 @@ const GenericHeader = ({ component: Component }) => {
           <Spacer />
           <Stack direction={["column", "row"]} spacing="24px" align="center">
             <Link href="/auth/login">
-              <Button fontSize="xl" variant="ghost" color="black">
+              <Button
+                fontSize="xl"
+                variant="ghost"
+                color={styleOnScroll.loginColor}
+                _hover={{}}
+              >
                 Login
               </Button>
             </Link>
             <Link href="/auth/signup">
-              <Button fontSize="xl">Signup</Button>
+              <Button fontSize="xl" bg={styleOnScroll.signUpBgColor}>
+                Signup
+              </Button>
             </Link>
           </Stack>
         </Flex>
