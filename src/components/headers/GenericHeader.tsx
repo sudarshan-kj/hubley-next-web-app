@@ -79,7 +79,7 @@ const GenericHeader = ({ component: Component }) => {
           </Stack>
         </Flex>
       </Box>
-      <Box p={4}>
+      <Box>
         <Component />
       </Box>
     </>

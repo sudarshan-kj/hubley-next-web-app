@@ -6,9 +6,9 @@ import { AddIcon, Search2Icon } from "@chakra-ui/icons";
 import TextInputField from "../components/inputs/TextInputField";
 
 const Home = () => (
-  <Box px={40} py={20}>
+  <Box py={20}>
     <VStack spacing={100}>
-      <Flex direction={["column", "row"]}>
+      <Flex px={20} direction={["column", "row"]}>
         <Center flex="3" flexDirection="column">
           <VStack spacing="10">
             <Heading fontSize={["3xl", "6xl"]}>
@@ -43,7 +43,7 @@ const Home = () => (
           />
         </Center>
       </Flex>
-      <Flex direction={["column", "row"]}>
+      <Flex px={20} direction={["column", "row"]}>
         <Center>
           <Image
             alt="events"

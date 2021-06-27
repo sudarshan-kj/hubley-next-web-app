@@ -112,7 +112,7 @@ const WithAuthHeader = ({ component: Component }) => {
         </Flex>
       </Box>
       {/* The component passed is rendered here, beneath the header component */}
-      <Box p={4}>
+      <Box>
         <Component />
       </Box>
     </>
