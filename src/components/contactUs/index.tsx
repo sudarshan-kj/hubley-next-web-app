@@ -25,7 +25,6 @@ const ContactUs = () => (
       label="email"
       onChange={() => console.log("Value is being changed")}
       value="something"
-      inputType="email"
       inputBoxProps={{
         color: "white",
         bgColor: "brand.600",
@@ -40,7 +39,6 @@ const ContactUs = () => (
       label="message"
       onChange={() => console.log("Value is being changed")}
       value="Lorem ipsum, dolor sit amet consectetur adipisicing elit. In, porro rem? Porro vitae vel, nulla ex doloribus dolorem atque aut!"
-      inputType="textarea"
       textAreaBoxProps={{
         color: "white",
         bgColor: "brand.600",

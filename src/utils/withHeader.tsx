@@ -26,19 +26,19 @@ const UnAuthorizedContent = () => (
   </Center>
 );
 
-export const withHeader = (Component) => () => {
+export const withHeader = (Component) => (props) => {
   const { currentUser } = useAuth();
   if (currentUser) {
-    return <AuthHeader component={Component} />;
+    return <AuthHeader component={Component} {...props} />;
   } else {
-    return <GenericHeader component={Component} />;
+    return <GenericHeader component={Component} {...props} />;
   }
 };
 
-export const withPrivateHeader = (Component) => () => {
+export const withPrivateHeader = (Component) => (props) => {
   const { currentUser } = useAuth();
   if (currentUser) {
-    return <AuthHeader component={Component} />;
+    return <AuthHeader component={Component} {...props} />;
   } else {
     return <GenericHeader component={UnAuthorizedContent} />;
   }
