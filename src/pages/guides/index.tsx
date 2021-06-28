@@ -4,7 +4,6 @@ import GuidesList from "../../components/guides/GuidesList";
 import path from "path";
 import { promises as fs } from "fs";
 import { withHeader } from "../../utils/withHeader";
-import readline from "readline";
 
 const GuidesPage = ({ guides }) => (
   <Box p={16}>
@@ -18,18 +17,25 @@ const GuidesPage = ({ guides }) => (
   </Box>
 );
 
+const shouldQuestionMarkBeAppended = (str) => {
+  return (
+    str.startsWith("Why") || str.startsWith("What") || str.startsWith("How")
+  );
+};
+
 export async function getStaticProps() {
   const guidesDirectory = path.join(process.cwd(), "static-content/guides");
   const guideFiles = await fs.readdir(guidesDirectory);
   const guideNames = guideFiles.map(async (filename) => {
-    const filePath = path.join(guidesDirectory, filename);
-    const fileContents = await fs.readFile(filePath, "utf8");
     const guidePath = filename.split(".")[0];
-    console.log("File contents", fileContents);
-    const guideHeading = guidePath
+    let guideHeading = guidePath
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.substr(1))
       .join(" ");
+
+    if (shouldQuestionMarkBeAppended(guideHeading)) {
+      guideHeading = guideHeading.concat("?");
+    }
     return {
       guidePath,
       guideHeading,
