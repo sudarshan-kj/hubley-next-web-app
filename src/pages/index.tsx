@@ -56,7 +56,7 @@ const Home = () => {
           </Center>
           <Center flex="4">
             <Image
-              alt="Mountains"
+              alt="event-cards"
               src="/event-cards.png"
               height="500px"
               width="640px"

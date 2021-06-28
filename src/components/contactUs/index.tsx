@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Center, Button, HStack } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 import { VStack } from "@chakra-ui/react";
 import TextInputField from "../inputs/TextInputField";
 import TextAreaInputField from "../inputs/TextAreaInputField";
@@ -11,7 +11,7 @@ const ContactUs = () => (
     <TextInputField
       label="name"
       onChange={() => console.log("Value is being changed")}
-      value="something"
+      value="Kiran Shaw"
       inputBoxProps={{
         color: "white",
         bgColor: "brand.600",
@@ -24,7 +24,7 @@ const ContactUs = () => (
     <TextInputField
       label="email"
       onChange={() => console.log("Value is being changed")}
-      value="something"
+      value="kiran@gmail.com"
       inputBoxProps={{
         color: "white",
         bgColor: "brand.600",
