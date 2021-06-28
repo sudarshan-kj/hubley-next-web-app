@@ -2,6 +2,7 @@ import { Box, Flex, Stack, Button, Spacer } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Icon } from "@chakra-ui/icon";
+
 const Logo = require("-!svg-react-loader!../../assets/logo.svg");
 
 const initScrollState = {
@@ -11,7 +12,7 @@ const initScrollState = {
   signUpBgColor: "brand.500",
 };
 
-const GenericHeader = ({ component: Component }) => {
+const GenericHeader = ({ component: Component, ...rest }) => {
   const [styleOnScroll, setStyleOnScoll] = useState(initScrollState);
 
   useEffect(() => {
@@ -80,7 +81,7 @@ const GenericHeader = ({ component: Component }) => {
         </Flex>
       </Box>
       <Box>
-        <Component />
+        <Component {...rest} />
       </Box>
     </>
   );

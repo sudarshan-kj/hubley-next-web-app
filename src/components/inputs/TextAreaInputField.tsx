@@ -1,25 +1,23 @@
-import { Input, VStack, Text } from "@chakra-ui/react";
+import { Textarea, VStack, Text } from "@chakra-ui/react";
 import { FC } from "react";
 
 interface TextInputFieldProps {
   label: string;
   onChange: (event: any) => void;
   value: string;
-  inputType?: string;
   labelProps?: any;
-  inputBoxProps?: any;
+  textAreaBoxProps?: any;
   error?: string;
   [x: string]: any;
 }
 
 const TextInputField: FC<TextInputFieldProps> = ({
   label,
-  inputType = "text",
   onChange,
   value,
   error,
   labelProps,
-  inputBoxProps,
+  textAreaBoxProps,
   ...rest
 }) => {
   return (
@@ -27,12 +25,12 @@ const TextInputField: FC<TextInputFieldProps> = ({
       <Text fontWeight="extrabold" {...labelProps}>
         {label}
       </Text>
-      <Input
-        type={inputType}
-        size="lg"
+      <Textarea
         value={value}
         onChange={onChange}
-        {...inputBoxProps}
+        placeholder="Here is a sample placeholder"
+        size="lg"
+        {...textAreaBoxProps}
       />
       <Text fontWeight="extrabold" color="red.500">
         {error}

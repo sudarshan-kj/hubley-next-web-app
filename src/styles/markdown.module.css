@@ -1,0 +1,33 @@
+.markdown h1 {
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 2rem;
+}
+
+.markdown h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.markdown h3 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.markdown h4 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.markdown p {
+  font-size: 16px;
+}
+
+.markdown code {
+  background-color: rgb(228, 228, 228);
+  padding: 2px 5px;
+}
+
+.markdown a {
+  color: var(--chakra-colors-brand-500);
+}
