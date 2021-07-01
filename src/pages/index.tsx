@@ -9,10 +9,10 @@ import {
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { VStack } from "@chakra-ui/react";
-import { withHeader } from "../utils/withHeader";
+import { withHeader } from "utils/withHeader";
 import Image from "next/image";
 import { AddIcon, Search2Icon } from "@chakra-ui/icons";
-import ContactUs from "../components/contactUs";
+import ContactUs from "components/contactUs";
 import Link from "next/link";
 const Logo = require("-!svg-react-loader!../assets/logo.svg");
 const InstagramIcon = require("-!svg-react-loader!../assets/instaicon.svg");

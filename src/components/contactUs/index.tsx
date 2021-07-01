@@ -1,7 +1,7 @@
 import { Heading } from "@chakra-ui/react";
 import { VStack } from "@chakra-ui/react";
-import TextInputField from "../inputs/TextInputField";
-import TextAreaInputField from "../inputs/TextAreaInputField";
+import TextInputField from "components/inputs/TextInputField";
+import TextAreaInputField from "components/inputs/TextAreaInputField";
 
 const ContactUs = () => (
   <VStack spacing="6" width="300px">

@@ -8,9 +8,9 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import TextInputField from "../inputs/TextInputField";
-import PasswordInputField from "../inputs/PasswordInputField";
-import { useAuth } from "../../utils/AuthProvider";
+import TextInputField from "components/inputs/TextInputField";
+import PasswordInputField from "components/inputs/PasswordInputField";
+import { useAuth } from "utils/AuthProvider";
 
 interface InputField {
   value: string;

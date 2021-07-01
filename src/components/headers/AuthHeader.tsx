@@ -10,8 +10,8 @@ import {
 import React, { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@chakra-ui/icon";
-const Logo = require("-!svg-react-loader!../../assets/logo.svg");
-import { useAuth } from "../../utils/AuthProvider";
+const Logo = require("-!svg-react-loader!assets/logo.svg");
+import { useAuth } from "utils/AuthProvider";
 import { useRouter } from "next/router";
 
 const initScrollState = {

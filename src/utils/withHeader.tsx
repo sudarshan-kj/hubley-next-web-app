@@ -1,7 +1,7 @@
 import { useAuth } from "./AuthProvider";
 import { Center, Box } from "@chakra-ui/layout";
-import AuthHeader from "../components/headers/AuthHeader";
-import GenericHeader from "../components/headers/GenericHeader";
+import AuthHeader from "components/headers/AuthHeader";
+import GenericHeader from "components/headers/GenericHeader";
 import Link from "next/link";
 
 const UnAuthorizedContent = () => (

@@ -1,5 +1,4 @@
-import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
-import { withHeader } from "../../utils/withHeader";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import GuideItem from "./GuideItem";
 
 const GuidesList = ({ guides }) => (

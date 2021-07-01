@@ -3,9 +3,9 @@ import { Icon } from "@chakra-ui/icon";
 import { AiFillHome as HomeIcon } from "react-icons/ai";
 import { HStack, VStack } from "@chakra-ui/react";
 import Link from "next/link";
-const Logo = require("-!svg-react-loader!../../assets/logo.svg");
-const LoginIllustration = require("-!svg-react-loader!../../assets/login-graphic.svg");
-const SignupIllustration = require("-!svg-react-loader!../../assets/signup-graphic.svg");
+const Logo = require("-!svg-react-loader!assets/logo.svg");
+const LoginIllustration = require("-!svg-react-loader!assets/login-graphic.svg");
+const SignupIllustration = require("-!svg-react-loader!assets/signup-graphic.svg");
 
 const SideSection = ({ headingName, ...rest }) => {
   return (

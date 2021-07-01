@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/layout";
-import styles from "../../styles/markdown.module.css";
+import styles from "styles/markdown.module.css";
 
 const PostBody = ({ htmlContent }) => (
   <Box

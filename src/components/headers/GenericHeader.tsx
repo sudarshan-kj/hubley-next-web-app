@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Icon } from "@chakra-ui/icon";
 
-const Logo = require("-!svg-react-loader!../../assets/logo.svg");
+const Logo = require("-!svg-react-loader!assets/logo.svg");
 
 const initScrollState = {
   bgColor: "transparent",
