@@ -1,5 +1,9 @@
 import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
+import FormLabel from "./components/FormLabel";
+import Radio from "./components/Radio";
+import Input from "./components/Input";
+import Select from "./components/Select";
 
 const fonts = {
   heading: "poppins",
@@ -61,6 +65,12 @@ const theme = extendTheme(
     fonts,
     fontSizes,
     breakpoints,
+    components: {
+      FormLabel,
+      Radio,
+      Input,
+      Select,
+    },
   },
   withDefaultColorScheme({ colorScheme: "brand" })
 );

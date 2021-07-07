@@ -24,12 +24,12 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user)
         if (user.emailVerified) {
-          router.push("/");
+          router.push("/events/create");
         } else {
           router.push("/verifyEmail");
         }
       else {
-        router.push("/");
+        router.push("/events/create");
       }
       console.log("Email is not verified");
       setCurrentUser(user);
