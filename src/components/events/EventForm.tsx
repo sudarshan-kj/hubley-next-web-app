@@ -3,6 +3,7 @@ import TextInput from "../formFields/TextInput";
 import RadioInput from "../formFields/RadioInput";
 import SelectInput from "../formFields/SelectInput";
 import SwitchInput from "../formFields/SwitchInput";
+import DateAndTimeInput from "../formFields/DateAndTimeInput";
 import * as Yup from "yup";
 import { VStack, Flex, Button, Box, Spacer } from "@chakra-ui/react";
 const TitleIcon = require("-!svg-react-loader!assets/titleIcon.svg");
@@ -29,7 +30,18 @@ const EventForm = ({ seedData, callback, buttonName }) => {
     >
       <Form>
         <VStack spacing={12}>
-          <RadioInput name="eventType" type="radio" label="event type" />
+          <Flex width="100%" justify="space-around">
+            <Box flex={1}>
+              <RadioInput name="eventType" type="radio" label="event type" />
+            </Box>
+            <Box flex={1}>
+              <DateAndTimeInput
+                label="date and time"
+                type="date"
+                name="dateTime"
+              />
+            </Box>
+          </Flex>
           <TextInput
             name="eventTitle"
             type="text"

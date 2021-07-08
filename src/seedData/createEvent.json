@@ -2,5 +2,6 @@
   "eventType": "live",
   "eventTitle": "",
   "eventCategory": "",
-  "recordingAvailable": false
+  "recordingAvailable": false,
+  "dateTime": ""
 }

@@ -5,6 +5,7 @@ import AuthProvider from "../utils/AuthProvider";
 import Head from "next/head";
 import NProgress from "nprogress";
 import "../styles/nprogress.css";
+import "../styles/datePicker.css";
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
