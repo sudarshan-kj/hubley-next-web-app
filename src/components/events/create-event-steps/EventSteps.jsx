@@ -14,21 +14,21 @@ const Navigation = (props) => {
 
   return (
     <div className={styles.navigation}>
-      {props.current > 1 ? (
-        <Button
-          leftIcon={<ArrowBackIcon />}
-          variant="outline"
-          onClick={props.prev}
-        >
-          Back
-        </Button>
-      ) : (
-        <Spacer />
-      )}
+      <Button leftIcon={<DeleteIcon />} variant="outline" colorScheme="red">
+        Discard
+      </Button>
       <div>
-        <Button leftIcon={<DeleteIcon />} variant="outline" colorScheme="red">
-          Discard
-        </Button>
+        {props.current > 1 ? (
+          <Button
+            leftIcon={<ArrowBackIcon />}
+            variant="outline"
+            onClick={props.prev}
+          >
+            Back
+          </Button>
+        ) : (
+          <Spacer />
+        )}
         <Button
           rightIcon={<ArrowForwardIcon />}
           ml={8}
