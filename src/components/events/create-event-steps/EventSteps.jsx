@@ -6,15 +6,31 @@ import { Box, Button } from "@chakra-ui/button";
 import styles from "./navigation.module.css";
 import { Spacer } from "@chakra-ui/layout";
 import { useFormikContext } from "formik";
-
+import AlertDialogModal from "components/modals/AlertDialogModal";
 import { ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const Navigation = (props) => {
   const { validateForm, setFieldTouched } = useFormikContext();
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div className={styles.navigation}>
-      <Button leftIcon={<DeleteIcon />} variant="outline" colorScheme="red">
+      <AlertDialogModal
+        isOpen={isOpen}
+        onSafeClose={() => setIsOpen(false)}
+        onClickAction={() => router.push("/")}
+        safeButtonName="Cancel"
+        actionButtonName="Discard"
+      />
+      <Button
+        onClick={() => setIsOpen(true)}
+        leftIcon={<DeleteIcon />}
+        variant="outline"
+        colorScheme="red"
+      >
         Discard
       </Button>
       <div>
