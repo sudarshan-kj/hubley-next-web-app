@@ -7,7 +7,23 @@
 }
 
 .steps {
-  position: relative;
-  left: 93%;
-  bottom: 110px;
+  font-weight: bolder;
+}
+
+.stepsContainer {
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  left: calc(100% - 300px);
+  top: calc(0% - 100px);
+}
+.stepsContainer p {
+  font-weight: 900;
+  color: rgb(153, 153, 153);
+}
+
+.eventType {
+  color: rgb(115, 192, 0);
 }

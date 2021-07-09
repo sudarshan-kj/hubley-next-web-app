@@ -70,7 +70,17 @@ const Navigation = (props) => {
 };
 
 const Before = (props) => {
-  return <span className={styles.steps}>Step {props.current}/3</span>;
+  const { values } = useFormikContext();
+
+  return (
+    <div className={styles.stepsContainer}>
+      <span className={styles.steps}>Step {props.current}/3</span>
+      <p>
+        &#x1F6C8; You are now creating a{" "}
+        <span className={styles.eventType}>{values.eventType}</span> event
+      </p>
+    </div>
+  );
 };
 
 const config = {

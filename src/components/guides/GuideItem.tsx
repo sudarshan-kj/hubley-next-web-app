@@ -1,19 +1,19 @@
-import { Box, Heading } from "@chakra-ui/layout";
+import { Center, Heading } from "@chakra-ui/layout";
 import Link from "next/link";
 const GuideItem = ({ guide, guideNumber }) => (
   <Link href="/guides/[guidename]" as={`/guides/${guide.guidePath}`}>
     <a>
-      <Box
+      <Center
         border="1px"
         borderColor="brand.400"
-        borderRadius="sm"
-        p={12}
+        borderRadius="lg"
+        p={[6, 8]}
         bg="brand.50"
       >
-        <Heading>
+        <Heading fontSize={["md", "lg"]}>
           {guideNumber + 1}. {guide.guideHeading}
         </Heading>
-      </Box>
+      </Center>
     </a>
   </Link>
 );

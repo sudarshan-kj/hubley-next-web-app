@@ -21,7 +21,7 @@ const EventForm = ({ seedData, callback, buttonName }) => {
         }, 100);
       }}
     >
-      <Form>
+      <Form style={{ position: "relative" }}>
         <EventSteps />
       </Form>
     </Formik>

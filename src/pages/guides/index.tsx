@@ -4,9 +4,10 @@ import GuidesList from "../../components/guides/GuidesList";
 import path from "path";
 import { promises as fs } from "fs";
 import { withHeader } from "../../utils/withHeader";
+import ContentLayout from "components/layout/contentLayout";
 
 const GuidesPage = ({ guides }) => (
-  <Box p={16}>
+  <ContentLayout>
     <Meta
       title="Hubley Guides"
       description="Find out how to use hubley"
@@ -14,7 +15,7 @@ const GuidesPage = ({ guides }) => (
     />
     <Heading>Hubley Guides</Heading>
     <GuidesList guides={guides} />
-  </Box>
+  </ContentLayout>
 );
 
 const shouldQuestionMarkBeAppended = (str) => {

@@ -3,14 +3,20 @@ import { promises as fs } from "fs";
 import { withHeader } from "../../../utils/withHeader";
 import markdownToHtml from "../../../lib/markDownToHtml";
 import PostBody from "../../../components/utils/postBody";
-import { Box } from "@chakra-ui/layout";
 import Link from "next/link";
+import ContentLayout from "components/layout/contentLayout";
+import { Button } from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 const Guide = ({ htmlContent }) => (
-  <Box>
-    <Link href="/guides">Back to Guides</Link>
+  <ContentLayout>
+    <Link href="/guides">
+      <Button leftIcon={<ArrowBackIcon />} w="20%">
+        Back to Guides
+      </Button>
+    </Link>
     <PostBody htmlContent={htmlContent} />
-  </Box>
+  </ContentLayout>
 );
 
 export async function getStaticPaths() {
