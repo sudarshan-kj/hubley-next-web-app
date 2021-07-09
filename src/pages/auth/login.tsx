@@ -121,7 +121,7 @@ const Login = () => {
         </Button>
         <Text>{socialLogin.facebook.error}</Text>
         <Text fontSize="lg" fontWeight="bold" color="gray.500">
-          Already have an account?{" "}
+          Don't have an account?{" "}
           <Link href="/auth/signup">
             <a>
               <Box as="span" color="brand.500">
