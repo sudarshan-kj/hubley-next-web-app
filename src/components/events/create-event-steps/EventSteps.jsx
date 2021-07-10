@@ -53,7 +53,7 @@ const Navigation = (props) => {
             validateForm().then(async (e) => {
               //errors are set if there were any through validate form, but we have to manually touch the field so that the errors show up
               let errors = Object.keys(e).map((key) => {
-                setFieldTouched(key, true);
+                setFieldTouched(key);
                 return key;
               });
               if (!errors.length) {
@@ -76,7 +76,8 @@ const Before = (props) => {
     <div className={styles.stepsContainer}>
       <span className={styles.steps}>Step {props.current}/3</span>
       <p>
-        &#x1F6C8; You are now creating a{" "}
+        &#x1F6C8; You are now creating{" "}
+        {values.eventType === "live" ? "a" : "an"}{" "}
         <span className={styles.eventType}>{values.eventType}</span> event
       </p>
     </div>

@@ -8,7 +8,8 @@ export default function ContentLayout({ children, ...rest }) {
       maxW="1200px"
       px={[10, 40]}
       pt={4}
-      h="calc(100vh - 112px)"
+      pb={6}
+      minH="calc(100vh - 112px)"
       {...rest}
     >
       {children}

@@ -9,6 +9,13 @@ const yupValidationObject = Yup.object({
   eventCategory: Yup.string().required("Please select a category"),
 });
 
+//TODO: Uncomment this later.
+// if (process.browser) {
+//   window.onbeforeunload = () => {
+//     return "Are you sure?";
+//   };
+// }
+
 const EventForm = ({ seedData, callback, buttonName }) => {
   return (
     <Formik

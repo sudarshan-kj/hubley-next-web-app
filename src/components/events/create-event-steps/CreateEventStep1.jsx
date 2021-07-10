@@ -49,6 +49,7 @@ const CreateEventStep1 = (props) => {
             />
           </Box>
         </Flex>
+        <Button type="submit">Submit</Button>
       </VStack>
     </Box>
   );
