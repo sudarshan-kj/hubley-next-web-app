@@ -15,7 +15,6 @@ const DynamicEventForm = dynamic(
 const CreateEvent = () => {
   return (
     <ContentLayout>
-      <EventHeading description="Enter details like what makes the event unique" />
       <DynamicEventForm
         seedData={seedDataJSON}
         callback={""}

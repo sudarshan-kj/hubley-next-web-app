@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import EventSteps from "./create-event-steps/EventSteps";
+import EventSteps from "./EventSteps";
 
 const yupValidationObject = Yup.object({
   eventTitle: Yup.string()

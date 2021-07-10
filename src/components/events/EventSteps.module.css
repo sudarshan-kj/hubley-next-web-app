@@ -17,7 +17,6 @@
   align-items: flex-end;
   position: absolute;
   left: calc(100% - 300px);
-  top: calc(0% - 100px);
 }
 .stepsContainer p {
   font-weight: 900;

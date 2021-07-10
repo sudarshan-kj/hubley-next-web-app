@@ -1,9 +1,9 @@
 import { Step, Steps } from "react-step-builder";
-import CreateEventStep1 from "./CreateEventStep1";
-import CreateEventStep2 from "./CreateEventStep2";
-import CreateEventStep3 from "./CreateEventStep3";
-import { Box, Button } from "@chakra-ui/button";
-import styles from "./navigation.module.css";
+import CreateEventStep1 from "components/events/create-event-steps/CreateEventStep1";
+import CreateEventStep2 from "components/events/create-event-steps/CreateEventStep2";
+import CreateEventStep3 from "components/events/create-event-steps/CreateEventStep3";
+import { Button } from "@chakra-ui/button";
+import styles from "./EventSteps.module.css";
 import { Spacer } from "@chakra-ui/layout";
 import { useFormikContext } from "formik";
 import AlertDialogModal from "components/modals/AlertDialogModal";

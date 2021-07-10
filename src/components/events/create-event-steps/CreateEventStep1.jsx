@@ -5,14 +5,15 @@ import SwitchInput from "components/formFields/SwitchInput";
 import DateAndTimeInput from "components/formFields/DateAndTimeInput";
 import { VStack, Flex, Button, Box } from "@chakra-ui/react";
 import { CalendarIcon } from "@chakra-ui/icons";
-// const TitleIcon = require("-!svg-react-loader!assets/titleIcon.svg");
 import { FiType } from "react-icons/fi";
 import { AiOutlineGroup } from "react-icons/ai";
+import EventHeading from "../EventHeading";
 
-const CreateEventStep1 = (props) => {
+const CreateEventStep1 = () => {
   return (
     <Box>
-      <VStack spacing={12}>
+      <EventHeading description="Enter details like what makes the event unique" />
+      <VStack spacing={12} mt={6}>
         <TextInput
           name="eventTitle"
           type="text"
