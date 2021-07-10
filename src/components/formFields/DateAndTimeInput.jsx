@@ -2,19 +2,20 @@ import { useField } from "formik";
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage,
   IconButton,
   HStack,
   VStack,
   Text,
-  InputLeftElement,
+  Flex,
+  Icon,
 } from "@chakra-ui/react";
 import DateTime from "components/date/datetime";
 import { useState } from "react";
 import { DeleteIcon, AddIcon } from "@chakra-ui/icons";
 import { useEffect } from "react";
+import SliderInput from "./SliderInput";
 
-const DateAndTimeInput = ({ label, ...props }) => {
+const DateAndTimeInput = ({ label, icon: InputIcon, ...props }) => {
   const [field, meta, helpers] = useField(props);
   const { setValue } = helpers;
   const [dateList, setDateList] = useState({
@@ -62,49 +63,53 @@ const DateAndTimeInput = ({ label, ...props }) => {
     );
 
   return (
-    <FormControl isInvalid={meta.touched && meta.error}>
-      <FormLabel htmlFor={field.name}>{label}</FormLabel>
-      <VStack align="flex-start">
-        {dateList.data.map((Item, index) => {
-          const ItemWithDelete = withSlotNumberAndDelete(
-            Item.type,
-            index,
-            Item.id
-          );
-          return (
-            <ItemWithDelete
-              key={Item.id}
-              id={Item.id}
-              date={Item.value}
-              onChange={onDateChange}
-              slotNumber={index}
-            />
-          );
-        })}
-        <IconButton
-          borderRadius="full"
-          isDisabled={dateList.data.length >= 3}
-          onClick={() =>
-            setDateList((prev) => {
-              let newDateList = { ...prev };
-              const date = new Date();
-              date.setDate(date.getDate() + prev.data.length);
-              newDateList.data.push({
-                id: Math.floor(Math.random() * 10000),
-                type: DateTime,
-                value: date,
-              });
-              console.log("New data list is", newDateList);
-              return newDateList;
-            })
-          }
-          size="md"
-          icon={<AddIcon />}
-        />
-      </VStack>
+    <>
+      <FormControl isInvalid={meta.touched && meta.error}>
+        <Flex alignItems="center">
+          <FormLabel htmlFor={field.name}>{label}</FormLabel>
+          <Icon as={InputIcon} mb={2} />
+        </Flex>
 
-      <FormErrorMessage>{meta.error}</FormErrorMessage>
-    </FormControl>
+        <VStack align="flex-start">
+          {dateList.data.map((Item, index) => {
+            const ItemWithDelete = withSlotNumberAndDelete(
+              Item.type,
+              index,
+              Item.id
+            );
+            return (
+              <ItemWithDelete
+                key={Item.id}
+                id={Item.id}
+                date={Item.value}
+                onChange={onDateChange}
+                slotNumber={index}
+              />
+            );
+          })}
+          <IconButton
+            borderRadius="full"
+            isDisabled={dateList.data.length >= 3}
+            onClick={() =>
+              setDateList((prev) => {
+                let newDateList = { ...prev };
+                const date = new Date();
+                date.setDate(date.getDate() + prev.data.length);
+                newDateList.data.push({
+                  id: Math.floor(Math.random() * 10000),
+                  type: DateTime,
+                  value: date,
+                });
+                return newDateList;
+              })
+            }
+            size="md"
+            icon={<AddIcon />}
+          />
+        </VStack>
+        <SliderInput label="duration" mt={16} />
+      </FormControl>
+    </>
   );
 };
 

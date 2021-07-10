@@ -27,3 +27,9 @@
 .eventType {
   color: rgb(115, 192, 0);
 }
+
+@media screen and (max-width: 640px) {
+  .stepsContainer p {
+    visibility: hidden;
+  }
+}

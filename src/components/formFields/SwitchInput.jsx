@@ -1,14 +1,21 @@
 import { useField } from "formik";
-import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
+import { FormControl, FormLabel, Switch, Text } from "@chakra-ui/react";
 
 const SwitchInput = ({ label, ...props }) => {
   const [field] = useField({ ...props, type: "checkbox" });
+  function getValue() {
+    if (field.checked) return "Yes";
+    return "No";
+  }
   return (
-    <FormControl display="flex" alignItems="center">
+    <FormControl alignItems="center">
       <FormLabel htmlFor="tenantResiding" mb="0">
-        {label}
+        {label}{" "}
+        <Text color="gray.500" display="inline">
+          {getValue()}
+        </Text>
       </FormLabel>
-      <Switch {...field} {...props} isChecked={field.checked} />
+      <Switch {...field} mt={4} {...props} isChecked={field.checked} />
     </FormControl>
   );
 };

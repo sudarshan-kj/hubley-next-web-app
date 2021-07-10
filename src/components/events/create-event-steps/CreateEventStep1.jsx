@@ -3,51 +3,54 @@ import RadioInput from "components/formFields/RadioInput";
 import SelectInput from "components/formFields/SelectInput";
 import SwitchInput from "components/formFields/SwitchInput";
 import DateAndTimeInput from "components/formFields/DateAndTimeInput";
-import { VStack, Flex, Button, Box, Spacer } from "@chakra-ui/react";
-const TitleIcon = require("-!svg-react-loader!assets/titleIcon.svg");
+import { VStack, Flex, Button, Box } from "@chakra-ui/react";
+import { CalendarIcon } from "@chakra-ui/icons";
+// const TitleIcon = require("-!svg-react-loader!assets/titleIcon.svg");
+import { FiType } from "react-icons/fi";
+import { AiOutlineGroup } from "react-icons/ai";
 
 const CreateEventStep1 = (props) => {
   return (
     <Box>
       <VStack spacing={12}>
-        <Flex width="100%" justify="space-around">
-          <Box flex={1}>
-            <RadioInput name="eventType" type="radio" label="event type" />
-          </Box>
-          <Box flex={1}>
-            <DateAndTimeInput
-              label="date and time"
-              type="date"
-              name="dateTime"
-            />
-          </Box>
-        </Flex>
         <TextInput
           name="eventTitle"
           type="text"
           label="event title"
-          icon={TitleIcon}
+          icon={FiType}
         />
-        <Flex width="100%" justify="space-between">
-          <Box flex={2}>
+        <Flex direction={["column", "row"]} width="100%" justify="space-around">
+          <VStack flex={1} spacing={12}>
+            <RadioInput
+              icon={AiOutlineGroup}
+              name="eventType"
+              type="radio"
+              label="event type"
+            />
             <SelectInput
               name="eventCategory"
               label="eventCategory"
-              placeholder="select category"
-              width="100%"
+              placeholder="select category "
+              width="75%"
             >
               <option value="agriculture">Agriculture</option>
               <option value="it">IT</option>
               <option value="food">Food</option>
             </SelectInput>
-          </Box>
-          <Spacer flex={2} />
-          <Box flex={2} alignSelf="center">
             <SwitchInput
               name="recordingAvailable"
               label="recording available?"
+              size="lg"
             />
-          </Box>
+          </VStack>
+          <VStack flex={1} spacing={12} mt={[8, 0]}>
+            <DateAndTimeInput
+              icon={CalendarIcon}
+              label="date and time"
+              type="date"
+              name="dateTime"
+            />
+          </VStack>
         </Flex>
         <Button type="submit">Submit</Button>
       </VStack>
