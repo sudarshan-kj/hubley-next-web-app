@@ -8,7 +8,12 @@ const PostBody = ({ htmlContent }) => (
     background="white"
     maxWidth="900px"
     mx="auto"
-    shadow="2xl"
+    shadow="xl"
+    border="2px"
+    borderTop="12px"
+    borderColor="brand.400"
+    borderStyle="solid"
+    borderTopStyle="solid"
   >
     <Box
       className={styles.markdown}

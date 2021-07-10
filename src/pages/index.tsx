@@ -15,6 +15,7 @@ import { AddIcon, Search2Icon } from "@chakra-ui/icons";
 import ContactUs from "components/contactUs";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import ContentLayout from "components/layout/contentLayout";
 const Logo = require("-!svg-react-loader!../assets/logo.svg");
 const InstagramIcon = require("-!svg-react-loader!../assets/instaicon.svg");
 const FacebookIcon = require("-!svg-react-loader!../assets/fbicon.svg");
@@ -29,7 +30,7 @@ const socialLinks = {
 const Home = () => {
   const router = useRouter();
   return (
-    <Box>
+    <Box bgGradient="linear(to-b ,#ffffff 0%, #d6e6ff 80%)">
       <VStack spacing={100}>
         <Flex px={20} direction={["column", "row"]}>
           <Center flex="3" flexDirection="column">

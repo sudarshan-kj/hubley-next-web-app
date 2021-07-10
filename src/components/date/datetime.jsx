@@ -19,6 +19,7 @@ export default function DateTime({ id, date, onChange, slotNumber }) {
       onChange={(e) => onChange(e, id, slotNumber)}
       showTimeSelect
       customInput={<ExampleCustomInput />}
+      withPortal
     />
   );
 }

@@ -37,7 +37,6 @@ const theme = extendTheme(
     styles: {
       global: {
         body: {
-          bgGradient: "linear(to-b ,#e8f1ff 0%, #ffffff 100%)",
           color: "black",
           fontFamily: "poppins",
         },

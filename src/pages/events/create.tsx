@@ -1,9 +1,7 @@
-import { Stack } from "@chakra-ui/react";
 import { withHeader } from "utils/withHeader";
 import seedDataJSON from "seedData/createEvent.json";
-import EventHeading from "components/events/EventHeading";
 import dynamic from "next/dynamic";
-import ContentLayout from "components/layout/contentLayout";
+import { ContentLayoutWBg } from "components/layout/contentLayout";
 
 const DynamicEventForm = dynamic(
   () => import("../../components/events/EventForm"),
@@ -14,13 +12,19 @@ const DynamicEventForm = dynamic(
 
 const CreateEvent = () => {
   return (
-    <ContentLayout>
+    <ContentLayoutWBg
+      borderTop="12px"
+      borderColor="brand.300"
+      borderStyle="ridge"
+      bg="white"
+      boxShadow="md"
+    >
       <DynamicEventForm
         seedData={seedDataJSON}
         callback={""}
         buttonName="create"
       />
-    </ContentLayout>
+    </ContentLayoutWBg>
   );
 };
 

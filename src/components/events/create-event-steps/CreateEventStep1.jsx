@@ -53,7 +53,6 @@ const CreateEventStep1 = () => {
             />
           </VStack>
         </Flex>
-        <Button type="submit">Submit</Button>
       </VStack>
     </Box>
   );
