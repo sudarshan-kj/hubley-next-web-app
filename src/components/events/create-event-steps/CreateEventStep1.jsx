@@ -3,11 +3,12 @@ import RadioInput from "components/formFields/RadioInput";
 import SelectInput from "components/formFields/SelectInput";
 import SwitchInput from "components/formFields/SwitchInput";
 import DateAndTimeInput from "components/formFields/DateAndTimeInput";
-import { VStack, Flex, Button, Box } from "@chakra-ui/react";
+import { VStack, Flex, Box, ScaleFade, SlideFade } from "@chakra-ui/react";
 import { CalendarIcon } from "@chakra-ui/icons";
 import { FiType } from "react-icons/fi";
 import { AiOutlineGroup } from "react-icons/ai";
 import EventHeading from "../EventHeading";
+import { withSlider } from "./utils";
 
 const CreateEventStep1 = () => {
   return (
@@ -18,6 +19,8 @@ const CreateEventStep1 = () => {
           name="eventTitle"
           type="text"
           label="event title"
+          fontWeight="bolder"
+          fontSize="larger"
           icon={FiType}
         />
         <Flex direction={["column", "row"]} width="100%" justify="space-around">
@@ -58,4 +61,4 @@ const CreateEventStep1 = () => {
   );
 };
 
-export default CreateEventStep1;
+export default withSlider(CreateEventStep1);
