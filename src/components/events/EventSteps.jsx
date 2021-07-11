@@ -38,7 +38,12 @@ const Navigation = (props) => {
           <Button
             leftIcon={<ArrowBackIcon />}
             variant="outline"
-            onClick={props.prev}
+            onClick={() => {
+              /**this is captured so that we know from which page the user is coming.
+               * If the user is coming from step-2, then we slide step-1 from left, otherwise by default we slide from right */
+              props.setState("from", props.current);
+              props.prev();
+            }}
           >
             Back
           </Button>
