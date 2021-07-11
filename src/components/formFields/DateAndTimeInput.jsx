@@ -13,7 +13,6 @@ import DateTime from "components/date/datetime";
 import { useState } from "react";
 import { DeleteIcon, AddIcon } from "@chakra-ui/icons";
 import { useEffect } from "react";
-import SliderInput from "./SliderInput";
 import moment from "moment";
 
 const DateAndTimeInput = ({ label, icon: InputIcon, ...props }) => {
@@ -110,7 +109,6 @@ const DateAndTimeInput = ({ label, icon: InputIcon, ...props }) => {
             icon={<AddIcon />}
           />
         </VStack>
-        <SliderInput label="duration" mt={16} />
       </FormControl>
     </>
   );

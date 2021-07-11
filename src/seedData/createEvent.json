@@ -3,5 +3,6 @@
   "eventTitle": "",
   "eventCategory": "",
   "recordingAvailable": false,
-  "dateTime": []
+  "dateTime": [],
+  "eventDuration": 60
 }

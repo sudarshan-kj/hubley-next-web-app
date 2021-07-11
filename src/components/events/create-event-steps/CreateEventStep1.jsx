@@ -3,7 +3,8 @@ import RadioInput from "components/formFields/RadioInput";
 import SelectInput from "components/formFields/SelectInput";
 import SwitchInput from "components/formFields/SwitchInput";
 import DateAndTimeInput from "components/formFields/DateAndTimeInput";
-import { VStack, Flex, Box, ScaleFade, SlideFade } from "@chakra-ui/react";
+import SliderInput from "components/formFields/SliderInput";
+import { VStack, Flex, Box, Button } from "@chakra-ui/react";
 import { CalendarIcon } from "@chakra-ui/icons";
 import { FiType } from "react-icons/fi";
 import { AiOutlineGroup } from "react-icons/ai";
@@ -55,7 +56,14 @@ const CreateEventStep1 = () => {
               type="date"
               name="dateTime"
             />
+            <SliderInput
+              label="duration"
+              name="eventDuration"
+              type="number"
+              mt={16}
+            />
           </VStack>
+          <Button type="submit">Submit</Button>
         </Flex>
       </VStack>
     </Box>

@@ -6,20 +6,21 @@ import {
   FormLabel,
   Box,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useField } from "formik";
 
 export default function SliderInput({ label, ...props }) {
-  const [value, setValue] = useState(30);
+  const [field, _meta, helpers] = useField(props);
+  const { setValue } = helpers;
 
   function getHrs() {
-    const hrs = value / 60;
+    const hrs = field.value / 60;
     let suffix = "hour";
     if (hrs > 1) suffix = "hours";
-    return `${value / 60} ${suffix}`;
+    return `${field.value / 60} ${suffix}`;
   }
 
   return (
-    <Box {...props}>
+    <Box width="100%" {...props}>
       <FormLabel htmlFor="tenantResiding" mb="0">
         {label}: {getHrs()}
       </FormLabel>
@@ -29,7 +30,9 @@ export default function SliderInput({ label, ...props }) {
         max={360}
         step={30}
         defaultValue={60}
-        onChange={(val) => setValue(val)}
+        onChange={(val) => {
+          setValue(val);
+        }}
       >
         <SliderTrack>
           <SliderFilledTrack />
