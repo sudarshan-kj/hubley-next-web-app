@@ -1,8 +1,9 @@
 {
   "eventType": "live",
-  "eventTitle": "",
-  "eventCategory": "",
+  "eventTitle": "a",
+  "eventCategory": "it",
   "recordingAvailable": false,
   "dateTime": [],
-  "eventDuration": 60
+  "eventDuration": 60,
+  "eventImage": ""
 }
