@@ -14,7 +14,10 @@ import { withSlider } from "./utils";
 const CreateEventStep1 = () => {
   return (
     <Box>
-      <EventHeading description="Enter details like what makes the event unique" />
+      <EventHeading
+        heading="Basic Info"
+        description="Enter details like what makes the event unique"
+      />
       <VStack spacing={12} mt={6}>
         <TextInput
           name="eventTitle"

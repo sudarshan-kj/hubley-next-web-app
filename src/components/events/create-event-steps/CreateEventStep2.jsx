@@ -1,19 +1,21 @@
-import { Heading, Box, Text } from "@chakra-ui/react";
+import { Heading, Box, Text, VStack } from "@chakra-ui/react";
 import FileUploadInput from "components/formFields/FileUploadInput";
 import { withSlider } from "./utils";
 import { FiType } from "react-icons/fi";
+import EventHeading from "../EventHeading";
 
 const CreateEventStep2 = (props) => {
   return (
     <Box>
-      <Heading>Step 2</Heading>
-      <Text>This is the heading that will come up now</Text>
-      <FileUploadInput
-        icon={FiType}
-        isRequired
-        label="upload images"
-        name="eventImage"
-      />
+      <EventHeading heading="Images" description="Upload images" />
+      <VStack spacing={12} mt={6}>
+        <FileUploadInput
+          icon={FiType}
+          isRequired
+          label="upload images"
+          name="eventImage"
+        />
+      </VStack>
     </Box>
   );
 };
