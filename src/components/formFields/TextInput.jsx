@@ -8,10 +8,10 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-const TextInput = ({ label, icon: InputIcon, ...props }) => {
+const TextInput = ({ label, icon: InputIcon, isRequired, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <FormControl isInvalid={meta.error && meta.touched}>
+    <FormControl isRequired={isRequired} isInvalid={meta.error && meta.touched}>
       <Flex alignItems="center">
         <FormLabel htmlFor={field.name}>{label}</FormLabel>
         <Icon as={InputIcon} mb={2} />

@@ -22,6 +22,7 @@ const CreateEventStep1 = () => {
           fontWeight="bolder"
           fontSize="larger"
           icon={FiType}
+          isRequired
         />
         <Flex direction={["column", "row"]} width="100%" justify="space-around">
           <VStack flex={1} spacing={12}>

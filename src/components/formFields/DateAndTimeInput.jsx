@@ -14,12 +14,14 @@ import { useState } from "react";
 import { DeleteIcon, AddIcon } from "@chakra-ui/icons";
 import { useEffect } from "react";
 import SliderInput from "./SliderInput";
+import moment from "moment";
 
 const DateAndTimeInput = ({ label, icon: InputIcon, ...props }) => {
   const [field, meta, helpers] = useField(props);
   const { setValue } = helpers;
+  const tomorrow = moment().add(1, "days");
   const [dateList, setDateList] = useState({
-    data: [{ id: 1, type: DateTime, value: new Date() }],
+    data: [{ id: 1, type: DateTime, value: new Date(tomorrow) }],
   });
 
   useEffect(() => {
@@ -93,12 +95,13 @@ const DateAndTimeInput = ({ label, icon: InputIcon, ...props }) => {
             onClick={() =>
               setDateList((prev) => {
                 let newDateList = { ...prev };
-                const date = new Date();
-                date.setDate(date.getDate() + prev.data.length);
+                const futureDate = new Date(
+                  moment().add(prev.data.length + 1, "days")
+                );
                 newDateList.data.push({
                   id: Math.floor(Math.random() * 10000),
                   type: DateTime,
-                  value: date,
+                  value: futureDate,
                 });
                 return newDateList;
               })
