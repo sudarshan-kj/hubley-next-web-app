@@ -10,6 +10,10 @@ const createError = require("http-errors");
 const morgan = require("morgan");
 const logger = reqlib("utils/winston");
 const helmet = require("helmet");
+
+const { isAuthenticated, isAuthorized, hasTenantIdHeader } = reqlib(
+  "middlewares/utils.middleware"
+);
 const { emailServiceRouter, textServiceRouter, templateServiceRouter } =
   reqlib("/routes");
 
@@ -18,7 +22,7 @@ const { emailServiceRouter, textServiceRouter, templateServiceRouter } =
 app.use(
   morgan("combined", {
     stream: {
-      write: (message) => logger.info(message),
+      write: (message) => logger.http(message),
     },
   })
 );
@@ -30,11 +34,15 @@ app.use(cookieParser());
 app.disable("x-powered-by");
 const apiRouter = express.Router();
 app.get("/ping", (_, res) =>
-  res.status(200).send({ message: process.env.WINSTON_CONSOLE_LOGGER_LEVEL })
+  res.status(200).send({
+    message: "pong",
+    debugLevel: process.env.WINSTON_CONSOLE_LOGGER_LEVEL,
+  })
 );
 
 /*Custom api router for handling all api requests*/
 app.use("/api", apiRouter);
+apiRouter.use([isAuthenticated, isAuthorized, hasTenantIdHeader]);
 apiRouter.use("/service/email", emailServiceRouter);
 apiRouter.use("/service/text", textServiceRouter);
 apiRouter.use("/service/template", templateServiceRouter);
@@ -61,11 +69,19 @@ app.use((error, req, res, next) => {
     }
   );
   res.status(errorStatus);
-  res.json({
-    status: errorStatus,
-    message: error.message,
-    stack: error.stack,
-  });
+  if (process.env.NODE_ENV === "production")
+    res.json({
+      status: errorStatus,
+      message: error.message,
+      error: error,
+    });
+  else
+    res.json({
+      status: errorStatus,
+      message: error.message,
+      error: error,
+      stack: error.stack,
+    });
 });
 
 app.listen(port, () => logger.info(`Listening on port ${port}`));

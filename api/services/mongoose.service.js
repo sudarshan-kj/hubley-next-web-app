@@ -25,4 +25,16 @@ const connect = () => {
 
 connect();
 
+const dbOptions = {
+  useCache: true,
+  noListener: true,
+};
+
+exports.useDb = (databaseName) => {
+  return mongoose.connection.useDb(
+    `${config.DB_PREFIX}${databaseName}`,
+    dbOptions
+  );
+};
+
 exports.mongoose = mongoose;

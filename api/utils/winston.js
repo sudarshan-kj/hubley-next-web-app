@@ -12,7 +12,7 @@ const consoleFormat = format.combine(
   format.printf((info) => {
     return `${info.timestamp} - ${info.level}:  [${info.label}]: ${
       info.message
-    } ${JSON.stringify(info.metadata)}`;
+    } ::=> ${JSON.stringify(info.metadata)}`;
   })
 );
 
@@ -35,6 +35,16 @@ const logger = createLogger({
     }),
     new transports.File({
       filename: path.join(__dirname, "../logs/activity.log"),
+      maxsize: 5242880, //5MB
+    }),
+    new transports.File({
+      filename: path.join(__dirname, "../logs/debug.log"),
+      level: "debug",
+      maxsize: 5242880, //5MB
+    }),
+    new transports.File({
+      filename: path.join(__dirname, "../logs/http.log"),
+      level: "http",
       maxsize: 5242880, //5MB
     }),
   ],

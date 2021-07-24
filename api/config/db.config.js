@@ -4,6 +4,7 @@ module.exports = {
   get MONGO_DB_URL() {
     return `mongodb://localhost/kredx-comms-module`;
   },
+  DB_PREFIX: "kredx-comms-db-",
 
   // get MONGO_DB_URL() {
   //   return `mongodb+srv://${this.MONGO_DB_USERNAME}:${this.MONGO_DB_PASSWORD}@cluster0.fpezm.mongodb.net/urwa?retryWrites=true&w=majority`;

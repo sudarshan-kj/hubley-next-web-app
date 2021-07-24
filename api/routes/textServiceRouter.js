@@ -1,4 +1,4 @@
-const textHandler = reqlib("/handlers/text");
+const textHandler = reqlib("/handlers/textHandler");
 const textServiceRouter = require("express").Router();
 
 /*
@@ -12,7 +12,6 @@ HTTP POST Requests
 */
 
 textServiceRouter.post("/send", textHandler.sendTextMessage);
-
 
 /* Requests end here */
 module.exports = textServiceRouter;

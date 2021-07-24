@@ -1,9 +1,9 @@
-const mongoose = require("../services/mongoose.service").mongoose;
+const { mongoose, useDb } = reqlib("services/mongoose.service");
 const beautifyUnique = require("mongoose-beautiful-unique-validation");
-require("mongoose-type-email");
 
 let { Schema } = mongoose;
 const opts = {
+  autoIndex: true,
   toJSON: {
     virtuals: true, //this adds the "id" field
     versionKey: false,
@@ -17,44 +17,74 @@ const opts = {
   //setDefaultsOnInsert: true, // not really sure if this field is required, since I checked that it works fine even without it.
 };
 
-let emailLogRecordSchema = new Schema(
+let templateSchema = new Schema(
   {
-    from: {
-      type: mongoose.SchemaTypes.Email,
-    },
-    to: {
-      type: Object,
-    },
-    body: { type: String, default: "" }, //use default https://pbs.twimg.com/profile_images/1132191777195085824/KbxIQUxJ_400x400.png if needed
-    subject: {
+    name: {
       type: String,
+      unique: "A duplicate name already exists ({VALUE})",
     },
+    content: { type: Object },
+    isStatic: { type: Boolean },
     tenantId: {
       type: String,
       default: "kredx-default-tenant-id",
     },
-    templateId: { type: Schema.Types.ObjectId, default: null },
   },
   opts
 );
-emailLogRecordSchema.plugin(beautifyUnique);
+templateSchema.plugin(beautifyUnique);
+templateSchema.index({ name: 1 }, { unique: true });
 
-//quoteSchema.index({ quote: 1 }, { unique: true });
+const useDbAndGenerateQuery = (databaseName) => {
+  let db = useDb(databaseName);
+  let Template = db.model("Template", templateSchema);
+  return {
+    insert(templateData) {
+      let templateRecord = new Template(templateData);
+      return templateRecord.save();
+    },
+    findById(templateId) {
+      return Template.findById(templateId);
+    },
+    findByName(templateName) {
+      return Template.find({ name: templateName });
+    },
 
-let EmailLogRecord = mongoose.model("EmailLogRecord", emailLogRecordSchema);
+    getTemplateCount() {
+      return Template.countDocuments();
+    },
 
-exports.insert = (emailLogData) => {
-  let emailLogRecord = new EmailLogRecord(emailLogData);
-  return emailLogRecord.save();
+    deleteTemplate(templateId) {
+      return Template.findByIdAndDelete(templateId);
+    },
+
+    updateTemplate(templateId, newValue) {
+      return Template.findByIdAndUpdate(templateId, newValue, {
+        new: true,
+      });
+    },
+
+    listTemplates(show, page) {
+      //this is done so that we don't show the page after this page
+      page = page - 1;
+      let skip = show;
+      if (show < 10) {
+        skip = 10;
+      }
+      return new Promise((resolve, reject) => {
+        Template.find()
+          .limit(show)
+          .skip(skip * page)
+          .exec((err, templates) => {
+            if (err) reject(err);
+            else resolve(templates);
+          });
+      });
+    },
+  };
 };
 
-exports.insertMany = (emailLogsArray) => {
-  return EmailLogRecord.insertMany(emailLogsArray, { ordered: false });
-};
-
-exports.getLogCount = () => {
-  return EmailLogRecord.countDocuments();
-};
+exports.useDbAndGenerateQuery = useDbAndGenerateQuery;
 
 // exports.delete = (quoteId) => {
 //   return new Promise((resolve, reject) => {
@@ -78,10 +108,6 @@ exports.getLogCount = () => {
 
 // exports.findByCategory = (value) => {
 //   return Quote.findOne({ category: value });
-// };
-
-// exports.findById = (memberId) => {
-//   return Member.findById({ _id: memberId });
 // };
 
 // exports.update = (memberId, newValues) => {
