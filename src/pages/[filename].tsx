@@ -7,7 +7,10 @@ import PostBody from "../components/utils/postBody";
 const StaticPages = ({ htmlContent }) => <PostBody htmlContent={htmlContent} />;
 
 export async function getStaticPaths() {
-  const termsAndConditionDirectory = path.join(process.cwd(), "static-content");
+  const termsAndConditionDirectory = path.join(
+    process.cwd(),
+    "static-content/policies"
+  );
   const filenames = await fs.readdir(termsAndConditionDirectory);
   const filePaths = filenames.map(async (filename) => {
     return { params: { filename: filename.split(".")[0] } };
@@ -19,7 +22,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const termsAndConditionDirectory = path.join(process.cwd(), "static-content");
+  const termsAndConditionDirectory = path.join(
+    process.cwd(),
+    "static-content/policies"
+  );
   const filePath = path.join(
     termsAndConditionDirectory,
     `${params.filename}.md`
