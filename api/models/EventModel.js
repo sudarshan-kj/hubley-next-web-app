@@ -17,21 +17,30 @@ const opts = {
   //setDefaultsOnInsert: true, // not really sure if this field is required, since I checked that it works fine even without it.
 };
 
-let emailLogRecordSchema = new Schema(
+let eventSchema = new Schema(
   {
-    from: {
-      type: mongoose.SchemaTypes.Email,
-    },
-    to: {
-      type: Object,
-    },
-    body: { type: String, default: "" }, //use default https://pbs.twimg.com/profile_images/1132191777195085824/KbxIQUxJ_400x400.png if needed
-    subject: {
+    eventName: {
       type: String,
     },
-    tenantId: {
+    eventType: {
       type: String,
-      default: "kredx-default-tenant-id",
+    },
+    eventDescription: {
+      type: String,
+    },
+    eventImages: {
+      type: String,
+    },
+    eventDateTime: { type: Date }, //use default https://pbs.twimg.com/profile_images/1132191777195085824/KbxIQUxJ_400x400.png if needed
+    eventDuration: {
+      type: Number,
+    },
+    eventCost: {
+      type: String,
+    },
+    eventRegistrations: {},
+    createdBy: {
+      type: Schema.Types.ObjectId,
     },
     templateId: { type: Schema.Types.ObjectId, default: null },
   },
@@ -41,19 +50,19 @@ emailLogRecordSchema.plugin(beautifyUnique);
 
 //quoteSchema.index({ quote: 1 }, { unique: true });
 
-let EmailLogRecord = mongoose.model("EmailLogRecord", emailLogRecordSchema);
+let Event = mongoose.model("Event", eventSchema);
 
-exports.insert = (emailLogData) => {
-  let emailLogRecord = new EmailLogRecord(emailLogData);
-  return emailLogRecord.save();
+exports.insert = (eventData) => {
+  let eventRecord = new Event(eventData);
+  return eventRecord.save();
 };
 
-exports.insertMany = (emailLogsArray) => {
-  return EmailLogRecord.insertMany(emailLogsArray, { ordered: false });
+exports.insertMany = (eventsArray) => {
+  return Event.insertMany(eventsArray, { ordered: false });
 };
 
 exports.getLogCount = () => {
-  return EmailLogRecord.countDocuments();
+  return Event.countDocuments();
 };
 
 // exports.delete = (quoteId) => {

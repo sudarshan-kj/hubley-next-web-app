@@ -12,6 +12,11 @@ var upload = multer({ dest: "uploads/" });
 
 exports.readMultiFormPartData = upload.array("attachments", 5);
 
+exports.pass = (req, res, next) => {
+  console.log("USERRR MIDDLEWARE Allowing req to pass through me....");
+  next();
+};
+
 exports.validateEmailInputFields = (req, res, next) => {
   // convert form data to json object, then pass it on
   const jsonBody = {

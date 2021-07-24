@@ -2,7 +2,7 @@ global.reqlib = require("app-root-path").require;
 require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 8900;
 reqlib("services/init.service");
 const cors = require("cors");
 const app = express();
@@ -11,11 +11,10 @@ const morgan = require("morgan");
 const logger = reqlib("utils/winston");
 const helmet = require("helmet");
 
-const { isAuthenticated, isAuthorized, hasTenantIdHeader } = reqlib(
+const { isAuthenticated, isAuthorized } = reqlib(
   "middlewares/utils.middleware"
 );
-const { emailServiceRouter, textServiceRouter, templateServiceRouter } =
-  reqlib("/routes");
+const { eventRouter } = reqlib("/routes");
 
 /*USER COMMUNICATIONS MAIN MODULE*/
 
@@ -42,10 +41,8 @@ app.get("/ping", (_, res) =>
 
 /*Custom api router for handling all api requests*/
 app.use("/api", apiRouter);
-apiRouter.use([isAuthenticated, isAuthorized, hasTenantIdHeader]);
-apiRouter.use("/service/email", emailServiceRouter);
-apiRouter.use("/service/text", textServiceRouter);
-apiRouter.use("/service/template", templateServiceRouter);
+apiRouter.use([isAuthenticated, isAuthorized]);
+apiRouter.use("/event", eventRouter);
 
 /* Handler for invalid path (404)*/
 app.use((req, res, next) => {

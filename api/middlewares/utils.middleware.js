@@ -19,10 +19,10 @@ exports.isAuthorized = (req, res, next) => {
   throw createError(401, "Unauthorized");
 };
 
-exports.hasTenantIdHeader = (req, res, next) => {
-  const tenantId = req.headers[config.Headers.TENANT_ID];
-  if (tenantId) return nextWithVars(req, next, { tenantId });
-  throw createError(400, "No tenant id header was provided");
+exports.hasUserIdHeader = (req, res, next) => {
+  const userId = req.headers[config.Headers.USER_ID];
+  if (userId) return nextWithVars(req, next, { userId });
+  throw createError(400, "No user id was provided");
 };
 
 exports.validateQueryParams = (queryParamValidators) => (req, res, next) => {

@@ -1,9 +1,9 @@
-const { mongoose, useDb } = reqlib("services/mongoose.service");
+const mongoose = require("../services/mongoose.service").mongoose;
 const beautifyUnique = require("mongoose-beautiful-unique-validation");
+require("mongoose-type-email");
 
 let { Schema } = mongoose;
 const opts = {
-  autoIndex: true,
   toJSON: {
     virtuals: true, //this adds the "id" field
     versionKey: false,
@@ -17,74 +17,44 @@ const opts = {
   //setDefaultsOnInsert: true, // not really sure if this field is required, since I checked that it works fine even without it.
 };
 
-let templateSchema = new Schema(
+let userSchema = new Schema(
   {
-    name: {
+    userName: {
       type: String,
-      unique: "A duplicate name already exists ({VALUE})",
     },
-    content: { type: Object },
-    isStatic: { type: Boolean },
-    tenantId: {
+    userDescription: {
       type: String,
-      default: "kredx-default-tenant-id",
+    },
+    userImage: {
+      type: String,
+    },
+    userEvents: {
+      type: Object,
+    },
+    userSocialMediaLinks: {
+      type: Object,
     },
   },
   opts
 );
-templateSchema.plugin(beautifyUnique);
-templateSchema.index({ name: 1 }, { unique: true });
+emailLogRecordSchema.plugin(beautifyUnique);
 
-const useDbAndGenerateQuery = (databaseName) => {
-  let db = useDb(databaseName);
-  let Template = db.model("Template", templateSchema);
-  return {
-    insert(templateData) {
-      let templateRecord = new Template(templateData);
-      return templateRecord.save();
-    },
-    findById(templateId) {
-      return Template.findById(templateId);
-    },
-    findByName(templateName) {
-      return Template.find({ name: templateName });
-    },
+//quoteSchema.index({ quote: 1 }, { unique: true });
 
-    getTemplateCount() {
-      return Template.countDocuments();
-    },
+let User = mongoose.model("User", userSchema);
 
-    deleteTemplate(templateId) {
-      return Template.findByIdAndDelete(templateId);
-    },
-
-    updateTemplate(templateId, newValue) {
-      return Template.findByIdAndUpdate(templateId, newValue, {
-        new: true,
-      });
-    },
-
-    listTemplates(show, page) {
-      //this is done so that we don't show the page after this page
-      page = page - 1;
-      let skip = show;
-      if (show < 10) {
-        skip = 10;
-      }
-      return new Promise((resolve, reject) => {
-        Template.find()
-          .limit(show)
-          .skip(skip * page)
-          .exec((err, templates) => {
-            if (err) reject(err);
-            else resolve(templates);
-          });
-      });
-    },
-  };
+exports.insert = (userData) => {
+  let userDataRecord = new User(userData);
+  return userDataRecord.save();
 };
 
-exports.useDbAndGenerateQuery = useDbAndGenerateQuery;
+exports.getUserCount = () => {
+  return User.countDocuments();
+};
+
+exports.findById = (userId) => {
+  return User.findById({ _id: userId });
+};
 
 // exports.delete = (quoteId) => {
 //   return new Promise((resolve, reject) => {
@@ -108,6 +78,10 @@ exports.useDbAndGenerateQuery = useDbAndGenerateQuery;
 
 // exports.findByCategory = (value) => {
 //   return Quote.findOne({ category: value });
+// };
+
+// exports.findById = (memberId) => {
+//   return Member.findById({ _id: memberId });
 // };
 
 // exports.update = (memberId, newValues) => {

@@ -1,28 +1,40 @@
-const templateRouter = require("express").Router();
+const userRouter = require("express").Router();
 const { PathParams } = reqlib("config");
-const templateHandler = reqlib("handlers/templateHandler");
-const TemplateValidationMiddleware = reqlib(
-  "middlewares/template.validation.middleware"
+const userHandler = reqlib("/handlers/eventHandler");
+const UserValidationMiddleware = reqlib(
+  "middlewares/user.validation.middleware"
 );
 const UtilsMiddleware = reqlib("middlewares/utils.middleware");
 const { ValidatePageQueryParam, ValidateShowQueryParam } = reqlib(
   "utils/queryParamsValidator"
 );
-const { ValidateTemplateIdPathParam } = reqlib("utils/pathParamsValidator");
+const { ValidateUserIdPathParam } = reqlib("utils/pathParamsValidator");
 
 /*
 HTTP GET Requests
 */
-templateRouter.get("/list", [
+
+userRouter.get("/health", userHandler.health);
+
+/*
+HTTP POST Requests
+*/
+
+userRouter.post("/create", [
+  UserValidationMiddleware.pass,
+  userHandler.createUser,
+]);
+
+userRouter.get("/list", [
   UtilsMiddleware.validateQueryParams([
     ValidatePageQueryParam,
     ValidateShowQueryParam,
   ]),
-  templateHandler.listTemplates,
+  userRouter.listEvents,
 ]);
 
-templateRouter.get(`/:${PathParams.TEMPLATE_ID}`, [
-  UtilsMiddleware.validatePathParams([ValidateTemplateIdPathParam]),
+userRouter.get(`/:${PathParams.USER_ID}`, [
+  UtilsMiddleware.validatePathParams([ValidateUserIdPathParam]),
   templateHandler.getTemplate,
 ]);
 
@@ -70,4 +82,8 @@ templateRouter.delete(`/:${PathParams.TEMPLATE_ID}`, [
   templateHandler.deleteTemplate,
 ]);
 
-module.exports = templateRouter;
+/* Requests end here */
+module.exports = emailServiceRouter;
+
+/* Requests end here */
+module.exports = emailServiceRouter;

@@ -1,5 +1,6 @@
 exports.PathParams = {
-  TEMPLATE_ID: "templateId",
+  EVENT_ID: "eventId",
+  USER_ID: "userId",
 };
 
 exports.QueryParams = {
@@ -7,7 +8,7 @@ exports.QueryParams = {
   SHOW: "show",
 };
 
-exports.Headers = {
-  TEMPLATE_ID: "x-kredx-comms-template-id",
-  TENANT_ID: "x-kredx-comms-tenant-id",
-};
+// exports.Headers = {
+//   TEMPLATE_ID: "x-kredx-comms-template-id",
+//   TENANT_ID: "x-kredx-comms-tenant-id",
+// };

@@ -6,6 +6,11 @@ const { generateType } = reqlib("utils/types");
 const TemplateModel = reqlib("models/TemplateModel");
 const { templateNameValidation } = reqlib("utils/joiValidator");
 
+exports.pass = (req, res, next) => {
+  console.log("EVENT MIDDLEWARE Allowing req to pass through me....");
+  next();
+};
+
 exports.passIfTemplateNameIsNew = asyncHandler(async (req, res, next) => {
   const { tenantId } = req.locals;
   const { error } = templateNameValidation.validate(req.body);
