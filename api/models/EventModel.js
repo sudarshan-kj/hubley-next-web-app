@@ -38,7 +38,9 @@ let eventSchema = new Schema(
     eventCost: {
       type: String,
     },
-    eventRegistrations: {},
+    eventRegistrations: {
+      type: Object,
+    },
     createdBy: {
       type: Schema.Types.ObjectId,
     },
@@ -46,7 +48,7 @@ let eventSchema = new Schema(
   },
   opts
 );
-emailLogRecordSchema.plugin(beautifyUnique);
+eventSchema.plugin(beautifyUnique);
 
 //quoteSchema.index({ quote: 1 }, { unique: true });
 

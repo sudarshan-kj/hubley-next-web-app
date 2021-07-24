@@ -10,7 +10,7 @@ const { PathParams, QueryParams } = reqlib("config");
  * *Handler to return a OK response
  * @param  {} (req,res)
  */
-exports.returnOk = (req, res) => {
+exports.health = (req, res) => {
   return createOkResponse(res, "ok");
 };
 

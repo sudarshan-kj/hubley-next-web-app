@@ -25,17 +25,31 @@ class ValidatePathParam {
   }
 }
 
-class ValidateTemplateIdPathParam extends ValidatePathParam {
+class ValidateEventIdPathParam extends ValidatePathParam {
   constructor(pathParam) {
-    super(pathParam, PathParams.TEMPLATE_ID);
+    super(pathParam, PathParams.EVENT_ID);
   }
 
   validate() {
-    let templateId = this.pathParamValue;
+    let eventId = this.pathParamValue;
     if (!isValidObjectId(templateId)) {
-      throw createError(400, `Invalid template id: ${templateId}`);
+      throw createError(400, `Invalid event id: ${eventId}`);
     }
   }
 }
 
-exports.ValidateTemplateIdPathParam = ValidateTemplateIdPathParam;
+class ValidateUserIdPathParam extends ValidatePathParam {
+  constructor(pathParam) {
+    super(pathParam, PathParams.USER_ID);
+  }
+
+  validate() {
+    let userId = this.pathParamValue;
+    if (!isValidObjectId(templateId)) {
+      throw createError(400, `Invalid user id: ${userId}`);
+    }
+  }
+}
+
+exports.ValidateUserIdPathParam = ValidateUserIdPathParam;
+exports.ValidateEventIdPathParam = ValidateEventIdPathParam;

@@ -107,8 +107,8 @@ exports.getUser = asyncHandler(async (req, res) => {
  */
 // exports.getTemplateByName = asyncHandler(async (req, res) => {
 //   //will receive a valid object id from the middleware
-//   const templateId = req.params[PathParams.EVENT_ID];
-//   const templateObject = await TemplateModel.findById(templateId);
+//   const templateId = req.params[PathParams.USER_ID];
+//   const templateObject = await UserModel.findById(userId);
 //   let responseMessage = `No template with id: ${templateId} found`;
 //   if (templateObject) responseMessage = "Fetched template successfully";
 //   return createOkResponse(res, responseMessage, templateObject);

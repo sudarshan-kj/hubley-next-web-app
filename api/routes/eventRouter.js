@@ -8,7 +8,7 @@ const UtilsMiddleware = reqlib("middlewares/utils.middleware");
 const { ValidatePageQueryParam, ValidateShowQueryParam } = reqlib(
   "utils/queryParamsValidator"
 );
-const { ValidateUserIdPathParam } = reqlib("utils/pathParamsValidator");
+const { ValidateEventIdPathParam } = reqlib("utils/pathParamsValidator");
 
 /*
 HTTP GET Requests
@@ -22,7 +22,7 @@ HTTP POST Requests
 
 eventRouter.post("/create", [
   EventValidationMiddleware.pass,
-  eventHandler.createUser,
+  eventHandler.createEvent,
 ]);
 
 eventRouter.get("/list", [
@@ -34,36 +34,28 @@ eventRouter.get("/list", [
 ]);
 
 eventRouter.get(`/:${PathParams.USER_ID}`, [
-  UtilsMiddleware.validatePathParams([ValidateUserIdPathParam]),
-  eventHandler.getUser,
+  UtilsMiddleware.validatePathParams([ValidateEventIdPathParam]),
+  eventHandler.getEvent,
 ]);
 
 /*
 HTTP POST REQUESTS
 */
 
-templateRouter.post("/save", [
-  UtilsMiddleware.parseTemplate,
-  templateHandler.saveTemplate,
-]);
-
 /*
 HTTP PUT REQUESTS
 */
 
-templateRouter.put(`/:${PathParams.TEMPLATE_ID}`, [
-  UtilsMiddleware.parseTemplate,
-  templateHandler.updateTemplate,
-]);
+eventRouter.put(`/:${PathParams.EVENT_ID}`, [eventHandler.updateEvent]);
 
 /*
 HTTP DELETE REQUESTS
 */
 
-templateRouter.delete(`/:${PathParams.TEMPLATE_ID}`, [
-  UtilsMiddleware.validatePathParams([ValidateTemplateIdPathParam]),
-  templateHandler.deleteTemplate,
+eventRouter.delete(`/:${PathParams.EVENT_ID}`, [
+  UtilsMiddleware.validatePathParams([ValidateEventIdPathParam]),
+  eventHandler.deleteEvent,
 ]);
 
 /* Requests end here */
-module.exports = emailServiceRouter;
+module.exports = eventRouter;
