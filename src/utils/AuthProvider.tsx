@@ -22,13 +22,17 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user)
+      if (user) {
         if (user.emailVerified) {
           router.push("/events/create");
         } else {
           router.push("/verifyEmail");
         }
-      else {
+        console.log(
+          "ID Token is",
+          user.getIdToken(true).then((token) => console.log("Token is", token))
+        );
+      } else {
         router.push("/events/create");
       }
       console.log("Email is not verified");
@@ -39,7 +43,7 @@ const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  function signup(email: string, password: string) {
+  function signup(name: string, email: string, password: string) {
     return auth
       .createUserWithEmailAndPassword(email, password)
       .then(function (credential) {

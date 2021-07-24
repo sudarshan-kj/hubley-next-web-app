@@ -25,8 +25,8 @@ const { PathParams, QueryParams } = reqlib("config");
  * *Handler to return a OK response in case of a valid template name
  * @param  {} (req,res)
  */
-exports.returnOk = (req, res) => {
-  return createOkResponse(res, "Valid template name");
+exports.health = (req, res) => {
+  return createOkResponse(res, "ok");
 };
 
 /**
@@ -35,23 +35,16 @@ exports.returnOk = (req, res) => {
  */
 
 exports.createUser = asyncHandler(async (req, res) => {
-  const { templateName: name } = req.body;
-  const { parsedTemplate, tenantId } = req.locals;
-  let toSaveUser = {
-    name,
-    content: { ...parsedTemplate },
-    isStatic: !parsedTemplate.doesTemplateHaveVars,
-    tenantId,
-  };
-  let savedTemplate;
+  let toSaveUser = req.body;
+  let savedUser;
   try {
-    savedTemplate = await UserModel.insert(toSavetemplate);
+    savedUser = await UserModel.insert(toSaveUser);
   } catch (e) {
     if (e.errors && e.errors.name)
       throw createError(500, e.errors.name.message);
     throw createError(500, e);
   }
-  return createOkResponse(res, "Created user ::", savedTemplate);
+  return createOkResponse(res, "Created user ::", savedUser);
 });
 
 /**

@@ -6,11 +6,11 @@ const { eventInputValidatorSchema } = reqlib("utils/joiValidator");
 
 exports.pass = (req, res, next) => {
   console.log("EVENT MIDDLEWARE Allowing req to pass through me....");
-  next();
+  return next();
 };
 
 exports.validateInputFields = (req, res, next) => {
   const { error } = eventInputValidatorSchema.validate(req.body);
   if (error) throw createError(400, "Check input fields", error.details);
-  next();
+  return next();
 };

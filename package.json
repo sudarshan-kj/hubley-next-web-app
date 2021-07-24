@@ -12,6 +12,8 @@
     "@chakra-ui/theme-tools": "1.1.2",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
+    "@reduxjs/toolkit": "^1.6.1",
+    "axios": "^0.21.1",
     "firebase": "^8.6.8",
     "formik": "^2.2.9",
     "framer-motion": "^4.0.3",

@@ -11,7 +11,13 @@ exports.eventInputValidatorSchema = Joi.object({
   }),
 });
 
-exports.userInputValidatorSchema = Joi.object({
+exports.createUserInputValidatorSchema = Joi.object({
+  userName: Joi.string().required(),
+  userEmail: Joi.string().email().required(),
+  userFirebaseId: Joi.string().required(),
+});
+
+exports.updateUserInputValidatorSchema = Joi.object({
   userName: Joi.string().required(),
   userDescription: Joi.string(),
   userSocialMediaLinks: Joi.object({

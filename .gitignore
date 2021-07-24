@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 desktop.ini
+firebase-auth.json
 
 # testing
 /coverage

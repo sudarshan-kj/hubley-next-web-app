@@ -14,7 +14,7 @@ const helmet = require("helmet");
 const { isAuthenticated, isAuthorized } = reqlib(
   "middlewares/utils.middleware"
 );
-const { eventRouter } = reqlib("/routes");
+const { eventRouter, userRouter } = reqlib("/routes");
 
 /*USER COMMUNICATIONS MAIN MODULE*/
 
@@ -43,6 +43,7 @@ app.get("/ping", (_, res) =>
 app.use("/api", apiRouter);
 apiRouter.use([isAuthenticated, isAuthorized]);
 apiRouter.use("/event", eventRouter);
+apiRouter.use("/user", userRouter);
 
 /* Handler for invalid path (404)*/
 app.use((req, res, next) => {

@@ -25,16 +25,28 @@ const CommonInputsSection = ({ buttonName, children, ...rest }) => {
     value: "",
     error: "",
   });
+  const [name, setName] = useState<InputField>({
+    value: "",
+    error: "",
+  });
   const [buttonLoading, setButtonLoading] = useState(false);
   const toast = useToast();
 
-  const hanleOnChangePassword = (event) => {
+  const handleOnChangePassword = (event) => {
     setPassword({ value: event.target.value, error: "" });
     setEmail({ ...email, error: "" });
   };
-  const hanleOnChangeEmail = (event) => {
+  const handleOnChangeEmail = (event) => {
     setEmail({ value: event.target.value, error: "" });
     setPassword({ ...password, error: "" });
+  };
+
+  const handleOnChangeName = (event) => {
+    if (event.target.value.length > 30) {
+      setName((prev) => {
+        return { ...prev, error: "Name cannot exceed 30 characters" };
+      });
+    } else setName({ value: event.target.value, error: "" });
   };
 
   const handleForgotPassword = async () => {
@@ -68,6 +80,12 @@ const CommonInputsSection = ({ buttonName, children, ...rest }) => {
 
   const handleSubmitButton = async (e) => {
     e.preventDefault();
+    if (buttonName === "Signup" && name.value.length === 0) {
+      setName((prev) => {
+        return { ...prev, error: "Please enter name" };
+      });
+      return;
+    }
     setPassword({ ...password, error: "" });
     setEmail({ ...email, error: "" });
     if (inputFor === "login") {
@@ -94,7 +112,7 @@ const CommonInputsSection = ({ buttonName, children, ...rest }) => {
     } else if (inputFor === "signup") {
       try {
         setButtonLoading(true);
-        await signup(email.value, password.value);
+        await signup(name.value, email.value, password.value);
       } catch (e) {
         switch (e.code) {
           case "auth/weak-password":
@@ -119,15 +137,24 @@ const CommonInputsSection = ({ buttonName, children, ...rest }) => {
       <VStack w={["90%", "330px"]} mx={10} py={10} spacing={6}>
         <form style={{ width: "100%" }} onSubmit={handleSubmitButton}>
           <VStack spacing={6}>
+            {buttonName === "Signup" && (
+              <TextInputField
+                label="name"
+                onChange={handleOnChangeName}
+                value={name.value}
+                error={name.error}
+              />
+            )}
+
             <TextInputField
               label="email"
-              onChange={hanleOnChangeEmail}
+              onChange={handleOnChangeEmail}
               value={email.value}
               error={email.error}
             />
             <PasswordInputField
               label="password"
-              onChange={hanleOnChangePassword}
+              onChange={handleOnChangePassword}
               value={password.value}
               error={password.error}
               showForgotPassword={inputFor === "login"}

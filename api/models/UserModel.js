@@ -21,6 +21,13 @@ let userSchema = new Schema(
   {
     userName: {
       type: String,
+      required: [true, "Please provide a user name"],
+      maxlength: [30, "Name cannot exceed 30 characters"],
+    },
+    userEmail: {
+      type: String,
+      required: [true, "Please provide user's email"],
+      maxlength: [80, "Email cannot exceed 80 characters"],
     },
     userDescription: {
       type: String,
@@ -28,18 +35,63 @@ let userSchema = new Schema(
     userImage: {
       type: String,
     },
-    userEvents: {
-      type: Object,
+    userFirebaseId: {
+      type: String,
+    },
+    userRegisteredEvents: {
+      upcoming: {
+        live: Array,
+        onDemand: Array,
+      },
+      onGoing: {
+        live: Array,
+        onDemand: Array,
+      },
+      past: {
+        live: Array,
+        onDemand: Array,
+      },
+    },
+    userCreatedEvents: {
+      upcoming: {
+        live: Array,
+        onDemand: Array,
+      },
+      onGoing: {
+        live: Array,
+        onDemand: Array,
+      },
+      past: {
+        live: Array,
+        onDemand: Array,
+      },
+    },
+    userSavedEvents: {
+      upcoming: {
+        live: Array,
+        onDemand: Array,
+      },
+      onGoing: {
+        live: Array,
+        onDemand: Array,
+      },
+      past: {
+        live: Array,
+        onDemand: Array,
+      },
     },
     userSocialMediaLinks: {
-      type: Object,
+      twitter: String,
+      facebook: String,
+      instagram: String,
     },
   },
   opts
 );
-emailLogRecordSchema.plugin(beautifyUnique);
+userSchema.plugin(beautifyUnique);
 
-//quoteSchema.index({ quote: 1 }, { unique: true });
+userSchema.index({ userEmail: 1 }, { unique: true });
+userSchema.index({ userFirebaseId: 1 }, { unique: true });
 
 let User = mongoose.model("User", userSchema);
 

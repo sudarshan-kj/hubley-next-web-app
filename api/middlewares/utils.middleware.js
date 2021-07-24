@@ -4,13 +4,24 @@ const { nextWithVars } = reqlib("utils");
 const TemplateParser = reqlib("lib/template/templateParser");
 const { templateInputDataSchema } = reqlib("utils/joiValidator");
 const config = reqlib("config");
+const { firebaseAuth } = require("../services/firebase.service");
 
-// add additional custom logic to authenticate every request
-exports.isAuthenticated = (req, res, next) => {
-  const condition = true;
-  if (condition) return next();
-  throw createError(403, "Unauthenticated");
-};
+// add any additional custom logic to authenticate every request
+exports.isAuthenticated = asyncHandler(async (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  console.log("Auth header sis", authHeader);
+  if (authHeader) {
+    const idToken = authHeader.split(" ")[1];
+    try {
+      const decodedToken = await firebaseAuth.verifyIdToken(idToken);
+      console.log("Decoded token is", decodedToken);
+      return next();
+    } catch (e) {
+      throw createError(403, "Unauthenticated");
+    }
+  }
+  throw createError(400, "No auth token provideddsfdsfsdfsdf");
+});
 
 // add additional custom logic to authorize every request
 exports.isAuthorized = (req, res, next) => {
