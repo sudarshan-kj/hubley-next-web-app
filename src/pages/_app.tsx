@@ -2,7 +2,9 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../theme";
 import Router from "next/router";
 import AuthProvider from "../utils/AuthProvider";
-import Head from "next/head";
+import { Provider } from "react-redux";
+import store from "./../store";
+
 import NProgress from "nprogress";
 import "../styles/nprogress.css";
 
@@ -20,9 +22,11 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <ChakraProvider resetCSS theme={theme}>
-      <AuthProvider>
-        <ComponentWLayout {...pageProps} />
-      </AuthProvider>
+      <Provider store={store}>
+        <AuthProvider>
+          <ComponentWLayout {...pageProps} />
+        </AuthProvider>
+      </Provider>
     </ChakraProvider>
   );
 }

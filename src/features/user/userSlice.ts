@@ -87,8 +87,8 @@ const usersSlice = createSlice({
     // templateIdleStatus(state) {
     //   state.status = "idle";
     // },
-    createTemplateStatus(state, status: any) {
-      state.createStatus = status;
+    createTemplateLoadingStatus(state) {
+      state.createStatus = "loading";
     },
     // templateAdded(state: StateType, action: ActionType) {
     //   const template = action.payload;
@@ -160,12 +160,6 @@ export const selectStatus = (state: any) => state.templates.status;
 
 export const selectCreateStatus = (state: any) => state.templates.createStatus;
 
-// export const {
-//   templatesLoading,
-//   templateIdleStatus,
-//   templateAdded,
-//   templatesLoaded,
-//   createTemplateIdleStatus,
-// } = usersSlice.actions;
+export const { createTemplateLoadingStatus } = usersSlice.actions;
 
 export default usersSlice.reducer;

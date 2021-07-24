@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { auth, googleProvider, fbProvider } from "./initFirebase";
 import { Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { createTemplateLoadingStatus } from "features/user/userSlice";
 import { Center } from "@chakra-ui/react";
 
 const AuthContext = React.createContext(null);
@@ -19,6 +21,7 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<FirebaseUser>();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -47,6 +50,7 @@ const AuthProvider = ({ children }) => {
     return auth
       .createUserWithEmailAndPassword(email, password)
       .then(function (credential) {
+        dispatch(createTemplateLoadingStatus());
         console.log("User After signup is", credential);
         if (credential && credential.user.emailVerified === false) {
           credential.user
