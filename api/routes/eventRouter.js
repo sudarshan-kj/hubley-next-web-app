@@ -16,15 +16,6 @@ HTTP GET Requests
 
 eventRouter.get("/health", eventHandler.health);
 
-/*
-HTTP POST Requests
-*/
-
-eventRouter.post("/create", [
-  EventValidationMiddleware.pass,
-  eventHandler.createEvent,
-]);
-
 eventRouter.get("/list", [
   UtilsMiddleware.validateQueryParams([
     ValidatePageQueryParam,
@@ -37,10 +28,14 @@ eventRouter.get(`/:${PathParams.USER_ID}`, [
   UtilsMiddleware.validatePathParams([ValidateEventIdPathParam]),
   eventHandler.getEvent,
 ]);
-
 /*
-HTTP POST REQUESTS
+HTTP POST Requests
 */
+
+eventRouter.post("/create", [
+  EventValidationMiddleware.pass,
+  eventHandler.createEvent,
+]);
 
 /*
 HTTP PUT REQUESTS
