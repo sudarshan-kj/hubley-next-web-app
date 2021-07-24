@@ -19,7 +19,7 @@ const initScrollState = {
   color: "gray.500",
 };
 
-const WithAuthHeader = ({ component: Component }) => {
+const WithAuthHeader = ({ component: Component, ...rest }) => {
   const [styleOnScroll, setStyleOnScoll] = useState(initScrollState);
   const { currentUser, logout } = useAuth();
   const router = useRouter();
@@ -113,7 +113,7 @@ const WithAuthHeader = ({ component: Component }) => {
       </Box>
       {/* The component passed is rendered here, beneath the header component */}
       <Box>
-        <Component />
+        <Component {...rest} />
       </Box>
     </>
   );
