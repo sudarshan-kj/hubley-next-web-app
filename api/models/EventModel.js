@@ -29,7 +29,7 @@ let eventSchema = new Schema(
       type: String,
     },
     eventImages: {
-      type: String,
+      type: Array,
     },
     eventDateTime: { type: Date }, //use default https://pbs.twimg.com/profile_images/1132191777195085824/KbxIQUxJ_400x400.png if needed
     eventDuration: {
@@ -41,10 +41,10 @@ let eventSchema = new Schema(
     eventRegistrations: {
       type: Object,
     },
-    createdBy: {
-      type: Schema.Types.ObjectId,
+    eventCreatedBy: {
+      userName: String,
+      userId: String,
     },
-    templateId: { type: Schema.Types.ObjectId, default: null },
   },
   opts
 );
@@ -67,14 +67,34 @@ exports.getLogCount = () => {
   return Event.countDocuments();
 };
 
-// exports.delete = (quoteId) => {
-//   return new Promise((resolve, reject) => {
-//     Quote.deleteMany({ _id: quoteId }).exec((err, deletedQuote) => {
-//       if (err) reject(err);
-//       resolve(deletedQuote);
-//     });
-//   });
-// };
+exports.list = (show, page) => {
+  page = page - 1;
+  let skip = show;
+  if (show < 100) {
+    skip = 100;
+  }
+  return new Promise((resolve, reject) => {
+    Event.find()
+      .limit(show)
+      .skip(skip * page)
+      .exec((err, quotes) => {
+        if (err) reject(err);
+        else resolve(quotes);
+      });
+  });
+};
+
+exports.findById = (eventId) => {
+  return Event.findById(eventId);
+};
+
+exports.update = (eventId, newValues) => {
+  return Event.findByIdAndUpdate(eventId, newValues, { new: true });
+};
+
+exports.delete = (eventId) => {
+  return Event.findByIdAndDelete(eventId);
+};
 
 // exports.findLatest = () => {
 //   return Quote.findOne().sort({ publishedDate: -1 });
@@ -93,20 +113,4 @@ exports.getLogCount = () => {
 
 // exports.findById = (memberId) => {
 //   return Member.findById({ _id: memberId });
-// };
-
-// exports.update = (memberId, newValues) => {
-//   return Quote.findByIdAndUpdate({ _id: memberId }, newValues);
-// };
-
-// exports.list = (perPage, page) => {
-//   return new Promise((resolve, reject) => {
-//     Quote.find()
-//       .limit(perPage)
-//       .skip(perPage * page)
-//       .exec((err, quotes) => {
-//         if (err) reject(err);
-//         else resolve(quotes);
-//       });
-//   });
 // };

@@ -32,7 +32,7 @@ class ValidateEventIdPathParam extends ValidatePathParam {
 
   validate() {
     let eventId = this.pathParamValue;
-    if (!isValidObjectId(templateId)) {
+    if (!isValidObjectId(eventId)) {
       throw createError(400, `Invalid event id: ${eventId}`);
     }
   }

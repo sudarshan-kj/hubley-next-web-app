@@ -24,7 +24,7 @@ eventRouter.get("/list", [
   eventHandler.listEvents,
 ]);
 
-eventRouter.get(`/:${PathParams.USER_ID}`, [
+eventRouter.get(`/:${PathParams.EVENT_ID}`, [
   UtilsMiddleware.validatePathParams([ValidateEventIdPathParam]),
   eventHandler.getEvent,
 ]);
@@ -33,7 +33,7 @@ HTTP POST Requests
 */
 
 eventRouter.post("/create", [
-  EventValidationMiddleware.pass,
+  EventValidationMiddleware.validateInputFields,
   eventHandler.createEvent,
 ]);
 

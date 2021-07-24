@@ -1,43 +1,22 @@
 const Joi = require("joi");
 
-exports.emailInputValidatorSchema = Joi.object({
-  from: Joi.string()
-    .email({
-      minDomainSegments: 2,
-    })
-    .required(),
-  to: Joi.object({
-    recipient: Joi.array()
-      .items(
-        Joi.string()
-          .email({
-            minDomainSegments: 2,
-          })
-          .required()
-      )
-      .required(),
-    cc: Joi.array().items(
-      Joi.string().email({
-        minDomainSegments: 2,
-      })
-    ),
-    bcc: Joi.array().items(
-      Joi.string().email({
-        minDomainSegments: 2,
-      })
-    ),
-  }).required(),
-  body: Joi.string().min(0).max(500).required(),
-  subject: Joi.string().min(0).max(500).required(),
-  merge_tags: Joi.object(),
+exports.eventInputValidatorSchema = Joi.object({
+  eventName: Joi.string().required(),
+  eventDescription: Joi.string().required(),
+  eventType: Joi.string().valid("live", "onDemand").required(),
+  eventImages: Joi.array().items(Joi.string().required()).required(),
+  eventCreatedBy: Joi.object({
+    userName: Joi.string().required(),
+    userId: Joi.string().required(),
+  }),
 });
 
-exports.templateInputDataSchema = Joi.object({
-  data: Joi.string().required(),
-  merge_tags: Joi.object(),
-  templateName: Joi.string().required(),
-});
-
-exports.templateNameValidation = Joi.object({
-  templateName: Joi.string().required(),
+exports.userInputValidatorSchema = Joi.object({
+  userName: Joi.string().required(),
+  userDescription: Joi.string(),
+  userSocialMediaLinks: Joi.object({
+    twitter: Joi.string(),
+    facebook: Joi.string(),
+    instagram: Joi.string(),
+  }),
 });

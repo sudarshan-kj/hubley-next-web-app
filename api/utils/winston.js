@@ -25,7 +25,7 @@ const fileFormat = format.combine(
 
 const logger = createLogger({
   level: "info",
-  defaultMeta: { service: "communications-module" },
+  defaultMeta: { service: "hubley-web-app" },
   format: fileFormat,
   transports: [
     new transports.File({

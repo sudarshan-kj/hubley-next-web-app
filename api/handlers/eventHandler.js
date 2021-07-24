@@ -20,8 +20,7 @@ exports.health = (req, res) => {
  */
 
 exports.createEvent = asyncHandler(async (req, res) => {
-  const { eventData } = req.body;
-  let toSaveEvent = eventData;
+  let toSaveEvent = req.body;
   let savedEvent;
   try {
     savedEvent = await EventModel.insert(toSaveEvent);
@@ -41,7 +40,7 @@ exports.createEvent = asyncHandler(async (req, res) => {
 exports.deleteEvent = asyncHandler(async (req, res) => {
   //will receive a valid object id from the middleware
   const eventId = req.params[PathParams.EVENT_ID];
-  const response = await EventModel.deleteEvent(eventId);
+  const response = await EventModel.delete(eventId);
   let responseMessage = `No event with id: ${eventId} found`;
   if (response)
     responseMessage = `Successfully deleted event with id: ${eventId}`;
@@ -56,10 +55,8 @@ exports.deleteEvent = asyncHandler(async (req, res) => {
 exports.updateEvent = asyncHandler(async (req, res) => {
   //will receive a valid object id from the middleware
   const eventId = req.params[PathParams.EVENT_ID];
-  const { eventData } = req.body;
-  const { parsedEvent, tenantId } = req.locals;
-  const toSaveEvent = eventData;
-  const eventObject = await EventModel.updateEvent(eventId, toSaveEvent);
+  const toSaveEvent = req.body;
+  const eventObject = await EventModel.update(eventId, toSaveEvent);
   let responseMessage = `No event with id: ${eventId} found`;
   if (eventObject)
     responseMessage = `Successfully updated event with id: ${eventId}`;
@@ -68,6 +65,7 @@ exports.updateEvent = asyncHandler(async (req, res) => {
 
 /**
  * *Handler to GET existing event
+ *
  * @param  {} async(req,res)
  */
 
@@ -88,7 +86,7 @@ exports.getEvent = asyncHandler(async (req, res) => {
 exports.listEvents = asyncHandler(async (req, res) => {
   const page = Number(req.query[QueryParams.PAGE]);
   const show = Number(req.query[QueryParams.SHOW]);
-  const events = await EventModel.listEvents(show, page);
+  const events = await EventModel.list(show, page);
   return createOkResponse(res, "Successfully fetched", events, {
     count: events.length,
   });
