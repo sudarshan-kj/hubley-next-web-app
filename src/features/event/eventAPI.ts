@@ -1,10 +1,12 @@
 import { authAxios } from "../../utils/authReq";
 
-export async function fetchUserApi(userId: string) {
+export async function fetchTemplatesApi() {
   let data;
 
   try {
-    const response = await authAxios.get(`/api/user/${userId}`);
+    const response = await authAxios.get(
+      "api/service/template/list?page=1&show=10"
+    );
     if (response.status === 200) return response.data;
     throw new Error(response.statusText);
   } catch (err) {
@@ -12,11 +14,10 @@ export async function fetchUserApi(userId: string) {
   }
 }
 
-export async function createNewUserApi(user: any) {
+export async function saveNewUserApi(user: any) {
   const toSaveUser = {
     userName: user.name,
     userEmail: user.email,
-    userFirebaseId: user.firebaseId,
   };
   try {
     const response = await authAxios.post("/api/user/create", toSaveUser);
@@ -27,11 +28,14 @@ export async function createNewUserApi(user: any) {
   }
 }
 
-export async function updateUserApi(userId: string, newValues: any) {
+export async function updateTemplateApi(templateId: string, newValues: any) {
   let data;
 
   try {
-    const response = await authAxios.patch(`/api/user/${userId}`, newValues);
+    const response = await authAxios.patch(
+      `/api/service/template/${templateId}`,
+      newValues
+    );
     if (response.status === 200) return response.data;
     throw new Error(response.statusText);
   } catch (err) {
@@ -39,12 +43,21 @@ export async function updateUserApi(userId: string, newValues: any) {
   }
 }
 
-export async function deleteUserApi(userId: string) {
+export async function deleteTemplateApi(templateId: string) {
   try {
-    const response = await authAxios.delete(`/api/user/${userId}`);
+    const response = await authAxios.delete(
+      `/api/service/template/${templateId}`
+    );
     if (response.status === 200) return response.data;
     throw new Error(response.statusText);
   } catch (err) {
     return Promise.reject(err.message ? err.message : err);
   }
+}
+
+// A mock function to mimic making an async request for data
+export function deleteTemplateApi2(template: string) {
+  return new Promise((resolve, reject) =>
+    setTimeout(() => reject({ data: 1 }), 2000)
+  );
 }

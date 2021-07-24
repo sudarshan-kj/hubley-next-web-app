@@ -6,17 +6,19 @@ import { promises as fs } from "fs";
 import { withHeader } from "../../utils/withHeader";
 import ContentLayout from "components/layout/contentLayout";
 
-const GuidesPage = ({ guides }) => (
-  <ContentLayout>
-    <Meta
-      title="Hubley Guides"
-      description="Find out how to use hubley"
-      keywords="hubley guides, online events guides"
-    />
-    <Heading>Hubley Guides</Heading>
-    <GuidesList guides={guides} />
-  </ContentLayout>
-);
+const GuidesPage = ({ guides }) => {
+  return (
+    <ContentLayout>
+      <Meta
+        title="Hubley Guides"
+        description="Find out how to use hubley"
+        keywords="hubley guides, online events guides"
+      />
+      <Heading>Hubley Guides</Heading>
+      <GuidesList guides={guides} />
+    </ContentLayout>
+  );
+};
 
 const shouldQuestionMarkBeAppended = (str) => {
   return (

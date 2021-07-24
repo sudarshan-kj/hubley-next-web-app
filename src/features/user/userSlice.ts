@@ -5,17 +5,18 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 import { StateType, ActionType } from "../../utils/types";
-import { TemplateEntity } from "./templateTypes";
+import { UserEntity } from "./userType";
+
 import {
-  fetchTemplatesApi,
-  saveNewTemplateApi,
-  deleteTemplateApi,
-  updateTemplateApi,
-} from "./templatesAPI";
+  fetchUserApi,
+  createNewUserApi,
+  deleteUserApi,
+  updateUserApi,
+} from "./userAPI";
 
-const templateAdapter = createEntityAdapter();
+const userAdapter = createEntityAdapter();
 
-const initialState: StateType = templateAdapter.getInitialState({
+const initialState: StateType = userAdapter.getInitialState({
   status: "idle",
   fetchStatus: "idle",
   createStatus: "idle",
@@ -23,155 +24,131 @@ const initialState: StateType = templateAdapter.getInitialState({
   updateStatus: "idle",
 });
 
-export const fetchTemplates = createAsyncThunk(
-  "templates/fetchTemplates",
-  async () => {
+export const fetchUser = createAsyncThunk(
+  "templates/fetchUser",
+  async (userId: string) => {
     try {
-      const response = await fetchTemplatesApi();
+      const response = await fetchUserApi(userId);
       return response.data;
     } catch (e) {
-      console.error("::Error occurred while fetching templates::");
+      console.error("::Error occurred while fetching user::");
       throw e;
     }
   }
 );
 
-export const saveNewTemplate = createAsyncThunk(
-  "templates/saveNewTemplate",
-  async (newTemplate: TemplateEntity) => {
+export const createNewUser = createAsyncThunk(
+  "templates/createNewUser",
+  async (newUser: UserEntity) => {
     try {
-      const response: any = await saveNewTemplateApi(newTemplate);
+      const response: any = await createNewUserApi(newUser);
       return response.data;
     } catch (e) {
-      console.error("::Error occurred while saving new template::");
+      console.error("::Error occurred while creating new user::");
       throw e;
     }
   }
 );
 
-export const updateTemplate = createAsyncThunk(
-  "templates/updateTemplate",
+export const updateUser = createAsyncThunk(
+  "templates/updateUser",
   async (newValues: any) => {
-    const { templateId, template } = newValues;
+    const { userId, user } = newValues;
     try {
-      const response: any = await updateTemplateApi(templateId, template);
+      const response: any = await updateUserApi(userId, user);
       return response.data;
     } catch (e) {
-      console.error("::Error occurred while updating template::");
+      console.error("::Error occurred while updating user::");
       throw e;
     }
   }
 );
 
-export const deleteTemplate = createAsyncThunk(
-  "templates/deleteTemplate",
-  async (templateId: string) => {
+export const deleteUser = createAsyncThunk(
+  "templates/deleteUser",
+  async (userId: string) => {
     try {
-      const response: any = await deleteTemplateApi(templateId);
+      const response: any = await deleteUserApi(userId);
       return response.data;
     } catch (e) {
-      console.error("::Error occurred while deleting template::");
+      console.error("::Error occurred while deleting user::");
       throw e;
     }
   }
 );
 
-const templatesSlice = createSlice({
-  name: "templates",
+const usersSlice = createSlice({
+  name: "users",
   initialState,
   reducers: {
-    templatesLoading(state) {
-      state.status = "loading";
+    // templatesLoading(state) {
+    //   state.status = "loading";
+    // },
+    // templateIdleStatus(state) {
+    //   state.status = "idle";
+    // },
+    createTemplateStatus(state, status: any) {
+      state.createStatus = status;
     },
-    templateIdleStatus(state) {
-      state.status = "idle";
-    },
-    createTemplateIdleStatus(state) {
-      state.createStatus = "idle";
-    },
-    templateAdded(state: StateType, action: ActionType) {
-      const template = action.payload;
-      state.entities[template.id] = template;
-    },
-    templatesLoaded(state, action) {
-      const newEntities: TemplateEntity = {} as TemplateEntity;
-      action.payload.forEach((template: any) => {
-        newEntities[template.id] = template;
-      });
-
-      state.entities = newEntities;
-      state.status = "idle";
-    },
+    // templateAdded(state: StateType, action: ActionType) {
+    //   const template = action.payload;
+    //   state.entities[template.id] = template;
+    // },
+    // templatesLoaded(state, action) {
+    //   const newEntities: TemplateEntity = {} as TemplateEntity;
+    //   action.payload.forEach((template: any) => {
+    //     newEntities[template.id] = template;
+    //   });
+    //   state.entities = newEntities;
+    //   state.status = "idle";
+    // },
   },
   extraReducers: (builder: any) => {
     builder
+      .addCase(fetchUser.pending, (state: StateType, action: ActionType) => {
+        state.fetchStatus = "loading";
+      })
+      .addCase(fetchUser.fulfilled, (state: StateType, action: ActionType) => {
+        userAdapter.setOne(state, action.payload);
+        state.fetchStatus = "succeeded";
+      })
+      .addCase(fetchUser.rejected, (state: StateType, action: ActionType) => {
+        state.fetchStatus = "failed";
+      })
       .addCase(
-        fetchTemplates.pending,
+        createNewUser.pending,
         (state: StateType, action: ActionType) => {
-          state.status = "loading";
-        }
-      )
-      .addCase(
-        fetchTemplates.fulfilled,
-        (state: StateType, action: ActionType) => {
-          templateAdapter.setAll(state, action.payload);
-          state.status = "idle";
-        }
-      )
-      .addCase(
-        fetchTemplates.rejected,
-        (state: StateType, action: ActionType) => {
-          state.status = "failed";
-          throw new Error("Could not fetch templates");
-        }
-      )
-      .addCase(
-        saveNewTemplate.pending,
-        (state: StateType, action: ActionType) => {
-          state.status = "loading";
           state.createStatus = "loading";
         }
       )
       .addCase(
-        saveNewTemplate.fulfilled,
+        createNewUser.fulfilled,
         (state: StateType, action: ActionType) => {
-          templateAdapter.addOne(state, action.payload);
-          state.status = "succeeded";
+          userAdapter.addOne(state, action.payload);
           state.createStatus = "succeeded";
         }
       )
       .addCase(
-        saveNewTemplate.rejected,
+        createNewUser.rejected,
         (state: StateType, action: ActionType) => {
-          state.status = "idle";
           state.createStatus = "failed";
         }
       )
-      .addCase(
-        deleteTemplate.pending,
-        (state: StateType, action: ActionType) => {
-          state.status = "loading";
-        }
-      )
-      .addCase(
-        deleteTemplate.fulfilled,
-        (state: StateType, action: ActionType) => {
-          templateAdapter.removeOne(state, action.payload.id);
-          state.status = "succeeded";
-        }
-      )
-      .addCase(
-        deleteTemplate.rejected,
-        (state: StateType, action: ActionType) => {
-          state.status = "idle";
-          throw new Error("Could not delete template");
-        }
-      );
+      .addCase(deleteUser.pending, (state: StateType, action: ActionType) => {
+        state.deleteStatus = "loading";
+      })
+      .addCase(deleteUser.fulfilled, (state: StateType, action: ActionType) => {
+        userAdapter.removeOne(state, action.payload.id);
+        state.deleteStatus = "succeeded";
+      })
+      .addCase(deleteUser.rejected, (state: StateType, action: ActionType) => {
+        state.deleteStatus = "failed";
+      });
   },
 });
 
 export const { selectAll: selectTemplates, selectById: selectTemplateById } =
-  templateAdapter.getSelectors((state: any) => state.templates);
+  userAdapter.getSelectors((state: any) => state.templates);
 
 export const selectTemplateIds = createSelector(selectTemplates, (templates) =>
   templates.map((template: any) => template.id)
@@ -183,12 +160,12 @@ export const selectStatus = (state: any) => state.templates.status;
 
 export const selectCreateStatus = (state: any) => state.templates.createStatus;
 
-export const {
-  templatesLoading,
-  templateIdleStatus,
-  templateAdded,
-  templatesLoaded,
-  createTemplateIdleStatus,
-} = templatesSlice.actions;
+// export const {
+//   templatesLoading,
+//   templateIdleStatus,
+//   templateAdded,
+//   templatesLoaded,
+//   createTemplateIdleStatus,
+// } = usersSlice.actions;
 
-export default templatesSlice.reducer;
+export default usersSlice.reducer;
