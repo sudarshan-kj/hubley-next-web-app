@@ -45,7 +45,7 @@ class ValidateUserIdPathParam extends ValidatePathParam {
 
   validate() {
     let userId = this.pathParamValue;
-    if (!isValidObjectId(templateId)) {
+    if (!isValidObjectId(userId)) {
       throw createError(400, `Invalid user id: ${userId}`);
     }
   }

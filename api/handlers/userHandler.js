@@ -2,7 +2,7 @@ const logger = reqlib("/utils/winston");
 const asyncHandler = require("express-async-handler");
 const createError = require("http-errors");
 const { createOkResponse } = reqlib("utils/response");
-const UserModel = reqlib("/models/UserModel");
+const UserModel = reqlib("models/UserModel");
 const { PathParams, QueryParams } = reqlib("config");
 
 /**
@@ -55,9 +55,8 @@ exports.createUser = asyncHandler(async (req, res) => {
 exports.deleteUser = asyncHandler(async (req, res) => {
   //will receive a valid object id from the middleware
   const userIdToDelete = req.params[PathParams.USER_ID];
-  const { userId: userIdWhoIsDeleting } = req.locals;
-  const response = await Usermodel.deleteUser(userIdToDelete);
-  let responseMessage = `No template with id: ${templateId} found`;
+  const response = await UserModel.delete(userIdToDelete);
+  let responseMessage = `No user with id: ${userIdToDelete} found`;
   if (response)
     responseMessage = `Successfully deleted user with id: ${userIdToDelete}`;
   return createOkResponse(res, responseMessage, response);
@@ -110,7 +109,7 @@ exports.getUser = asyncHandler(async (req, res) => {
 exports.listUsers = asyncHandler(async (req, res) => {
   const page = Number(req.query[QueryParams.PAGE]);
   const show = Number(req.query[QueryParams.SHOW]);
-  const users = await UserModel.listUsers(show, page);
+  const users = await UserModel.list(show, page);
   return createOkResponse(res, "Successfully fetched", users, {
     count: users.length,
   });

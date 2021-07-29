@@ -3,7 +3,7 @@ import { auth, googleProvider, fbProvider } from "./initFirebase";
 import { Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { createTemplateLoadingStatus } from "features/user/userSlice";
+import { createNewUser } from "features/user/userSlice";
 import { Center } from "@chakra-ui/react";
 
 const AuthContext = React.createContext(null);
@@ -29,6 +29,8 @@ const AuthProvider = ({ children }) => {
         if (user.emailVerified) {
           router.push("/events/create");
         } else {
+          console.log("Email is not verified");
+
           router.push("/verifyEmail");
         }
         console.log(
@@ -38,7 +40,6 @@ const AuthProvider = ({ children }) => {
       } else {
         router.push("/events/create");
       }
-      console.log("Email is not verified");
       setCurrentUser(user);
       console.log("Current user is", user);
       setLoading(false);
@@ -50,16 +51,28 @@ const AuthProvider = ({ children }) => {
     return auth
       .createUserWithEmailAndPassword(email, password)
       .then(function (credential) {
-        dispatch(createTemplateLoadingStatus());
-        console.log("User After signup is", credential);
+        const user = {
+          userName: name,
+          userEmail: email,
+          userFirebaseId: "RandomId",
+        };
+        console.log("AM IN INCOMING>>>???");
+        console.log(
+          "TOKEdfEEN Token is",
+          credential
+            .getIdToken(true)
+            .then((token) => console.log("CREDD TOKEN IS is", token))
+        );
+        dispatch(createNewUser(user));
+
         if (credential && credential.user.emailVerified === false) {
-          credential.user
-            .sendEmailVerification({
-              url: "http://localhost:3000",
-            })
-            .then(function () {
-              console.log("email verification sent to user");
-            });
+          // credential.user
+          //   .sendEmailVerification({
+          //     url: "http://localhost:3000",
+          //   })
+          //   .then(function () {
+          //     console.log("email verification sent to user");
+          //   });
         }
       }); //catch is removed so that it is handled in the await code block under common input section
   }

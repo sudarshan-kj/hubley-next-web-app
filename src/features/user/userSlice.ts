@@ -41,6 +41,7 @@ export const createNewUser = createAsyncThunk(
   "templates/createNewUser",
   async (newUser: UserEntity) => {
     try {
+      console.log("Inside create new user  slice//....");
       const response: any = await createNewUserApi(newUser);
       return response.data;
     } catch (e) {

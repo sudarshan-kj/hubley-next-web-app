@@ -77,9 +77,9 @@ exports.list = (show, page) => {
     Event.find()
       .limit(show)
       .skip(skip * page)
-      .exec((err, quotes) => {
+      .exec((err, events) => {
         if (err) reject(err);
-        else resolve(quotes);
+        else resolve(events);
       });
   });
 };

@@ -108,14 +108,26 @@ exports.findById = (userId) => {
   return User.findById({ _id: userId });
 };
 
-// exports.delete = (quoteId) => {
-//   return new Promise((resolve, reject) => {
-//     Quote.deleteMany({ _id: quoteId }).exec((err, deletedQuote) => {
-//       if (err) reject(err);
-//       resolve(deletedQuote);
-//     });
-//   });
-// };
+exports.list = (show, page) => {
+  page = page - 1;
+  let skip = show;
+  if (show < 100) {
+    skip = 100;
+  }
+  return new Promise((resolve, reject) => {
+    User.find()
+      .limit(show)
+      .skip(skip * page)
+      .exec((err, users) => {
+        if (err) reject(err);
+        else resolve(users);
+      });
+  });
+};
+
+exports.delete = (userId) => {
+  return User.findByIdAndDelete(userId);
+};
 
 // exports.findLatest = () => {
 //   return Quote.findOne().sort({ publishedDate: -1 });

@@ -42,7 +42,7 @@ const checkMongoDbEnv = () => {
 };
 
 const checkEnvVars = () => {
-  checkMongoDbEnv();
+  // checkMongoDbEnv();
   checkWinstonLoggerEnv();
 };
 

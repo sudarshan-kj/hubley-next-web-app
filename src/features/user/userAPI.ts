@@ -13,12 +13,9 @@ export async function fetchUserApi(userId: string) {
 }
 
 export async function createNewUserApi(user: any) {
-  const toSaveUser = {
-    userName: user.name,
-    userEmail: user.email,
-    userFirebaseId: user.firebaseId,
-  };
+  const toSaveUser = user;
   try {
+    console.log("Inside create new user  API>>.//....");
     const response = await authAxios.post("/api/user/create", toSaveUser);
     if (response.status === 200) return response.data;
     throw new Error(response.statusText);
