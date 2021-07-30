@@ -45,7 +45,7 @@ export const createNewUser = createAsyncThunk(
       const response: any = await createNewUserApi(newUser);
       return response.data;
     } catch (e) {
-      console.error("::Error occurred while creating new user::");
+      console.error("::Error occurred while creating new user::", e);
       throw e;
     }
   }

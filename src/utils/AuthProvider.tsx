@@ -12,9 +12,12 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
+const emailVerificationRedirectUrl = "http://localhost:3000";
+
 interface FirebaseUser {
   updatePassword(value: string): any;
-  sendEmailVerification(): any;
+  sendEmailVerification({ url: any }): any;
+  emailVerified: string;
 }
 
 const AuthProvider = ({ children }) => {
@@ -26,19 +29,13 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        if (user.emailVerified) {
-          router.push("/events/create");
-        } else {
-          console.log("Email is not verified");
-
-          router.push("/verifyEmail");
-        }
         console.log(
           "ID Token is",
           user.getIdToken(true).then((token) => console.log("Token is", token))
         );
-      } else {
         router.push("/events/create");
+      } else {
+        router.push("/");
       }
       setCurrentUser(user);
       console.log("Current user is", user);
@@ -56,19 +53,17 @@ const AuthProvider = ({ children }) => {
           userEmail: email,
           userFirebaseId: "RandomId",
         };
-        console.log("AM IN INCOMING>>>???");
         console.log(
-          "TOKEdfEEN Token is",
-          credential
+          "MAIN TOKEN is",
+          credential.user
             .getIdToken(true)
-            .then((token) => console.log("CREDD TOKEN IS is", token))
+            .then((token) => dispatch(createNewUser(user)))
         );
-        dispatch(createNewUser(user));
 
         if (credential && credential.user.emailVerified === false) {
           // credential.user
           //   .sendEmailVerification({
-          //     url: "http://localhost:3000",
+          //     url: `${emailVerificationRedirectUrl}`,
           //   })
           //   .then(function () {
           //     console.log("email verification sent to user");
@@ -93,8 +88,10 @@ const AuthProvider = ({ children }) => {
     return currentUser.updatePassword(password);
   }
 
-  function sendEmailVerification() {
-    return currentUser.sendEmailVerification();
+  function sendEmailVerification({ url }) {
+    return currentUser.sendEmailVerification({
+      url: `${emailVerificationRedirectUrl}`,
+    });
   }
 
   function signInWithGoogle() {

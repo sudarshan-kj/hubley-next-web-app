@@ -89,7 +89,7 @@ exports.getUser = asyncHandler(async (req, res) => {
   const userId = req.params[PathParams.USER_ID];
   const userObject = await UserModel.findById(userId);
   let responseMessage = `No user with id: ${userId} found`;
-  if (templateObject) responseMessage = "Fetched user successfully";
+  if (userObject) responseMessage = "Fetched user successfully";
   return createOkResponse(res, responseMessage, userObject);
 });
 

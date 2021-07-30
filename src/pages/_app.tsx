@@ -1,12 +1,15 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../theme";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import AuthProvider from "../utils/AuthProvider";
 import { Provider } from "react-redux";
+import { useAuth } from "utils/AuthProvider";
 import store from "./../store";
 
 import NProgress from "nprogress";
 import "../styles/nprogress.css";
+import { useEffect } from "react";
+import CustomRouter from "utils/router";
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
@@ -24,7 +27,9 @@ function MyApp({ Component, pageProps }: any) {
     <ChakraProvider resetCSS theme={theme}>
       <Provider store={store}>
         <AuthProvider>
-          <ComponentWLayout {...pageProps} />
+          <CustomRouter>
+            <ComponentWLayout {...pageProps} />
+          </CustomRouter>
         </AuthProvider>
       </Provider>
     </ChakraProvider>

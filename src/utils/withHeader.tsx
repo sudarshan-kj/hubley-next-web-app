@@ -3,6 +3,7 @@ import { Center, Box } from "@chakra-ui/layout";
 import AuthHeader from "components/headers/AuthHeader";
 import GenericHeader from "components/headers/GenericHeader";
 import Link from "next/link";
+import router from "next/router";
 
 const UnAuthorizedContent = () => (
   <Center h="80vh" fontSize="2xl" color="brand.500" fontWeight="bold">
