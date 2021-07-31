@@ -2,6 +2,7 @@ import { Heading, Center } from "@chakra-ui/layout";
 import { withHeader } from "utils/withHeader";
 import Link from "next/link";
 import ContentLayout from "components/layout/contentLayout";
+import Card from "components/card";
 
 const Events = () => {
   return (

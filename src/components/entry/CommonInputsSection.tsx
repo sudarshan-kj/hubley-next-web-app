@@ -148,6 +148,7 @@ const CommonInputsSection = ({ buttonName, children, ...rest }) => {
 
             <TextInputField
               label="email"
+              inputType="email"
               onChange={handleOnChangeEmail}
               value={email.value}
               error={email.error}
