@@ -39,46 +39,16 @@ let userSchema = new Schema(
       type: String,
     },
     userRegisteredEvents: {
-      upcoming: {
-        live: Array,
-        onDemand: Array,
-      },
-      onGoing: {
-        live: Array,
-        onDemand: Array,
-      },
-      past: {
-        live: Array,
-        onDemand: Array,
-      },
+      live: [Schema.Types.ObjectId],
+      onDemand: [Schema.Types.ObjectId],
     },
     userCreatedEvents: {
-      upcoming: {
-        live: Array,
-        onDemand: Array,
-      },
-      onGoing: {
-        live: Array,
-        onDemand: Array,
-      },
-      past: {
-        live: Array,
-        onDemand: Array,
-      },
+      live: [Schema.Types.ObjectId],
+      onDemand: [Schema.Types.ObjectId],
     },
     userSavedEvents: {
-      upcoming: {
-        live: Array,
-        onDemand: Array,
-      },
-      onGoing: {
-        live: Array,
-        onDemand: Array,
-      },
-      past: {
-        live: Array,
-        onDemand: Array,
-      },
+      live: [Schema.Types.ObjectId],
+      onDemand: [Schema.Types.ObjectId],
     },
     userSocialMediaLinks: {
       twitter: String,
@@ -105,7 +75,30 @@ exports.getUserCount = () => {
 };
 
 exports.findById = (userId) => {
-  return User.findById({ _id: userId });
+  return User.findById(userId);
+};
+
+exports.addToCreatedEvents = (userId, eventData) => {
+  const { eventType, eventId } = eventData;
+  return User.findByIdAndUpdate(userId, {
+    $addToSet: { [`userCreatedEvents.${eventType}`]: eventId },
+  });
+};
+
+exports.deleteFromCreatedEvents = (userId, eventData) => {
+  const { eventType, eventId } = eventData;
+  return User.findByIdAndUpdate(userId, {
+    $pull: { [`userCreatedEvents.${eventType}`]: eventId },
+  });
+  //each of these to control which bucket should the event be put in.
+};
+
+exports.addToSavedEvents = (eventId, eventType) => {};
+
+exports.addToRegisteredEvents = (eventId, eventType) => {};
+
+exports.findByFirebaseId = (firebaseId) => {
+  return User.findOne({ userFirebaseId: firebaseId });
 };
 
 exports.list = (show, page) => {

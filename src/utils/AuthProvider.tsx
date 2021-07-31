@@ -51,14 +51,12 @@ const AuthProvider = ({ children }) => {
         const user = {
           userName: name,
           userEmail: email,
-          userFirebaseId: "RandomId",
         };
-        console.log(
-          "MAIN TOKEN is",
-          credential.user
-            .getIdToken(true)
-            .then((token) => dispatch(createNewUser(user)))
-        );
+
+        credential.user.getIdToken(true).then((token) => {
+          console.log("Token object is", token);
+          dispatch(createNewUser(user));
+        });
 
         if (credential && credential.user.emailVerified === false) {
           // credential.user

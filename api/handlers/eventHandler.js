@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const createError = require("http-errors");
 const { createOkResponse } = reqlib("utils/response");
 const EventModel = reqlib("/models/EventModel");
+const UserModel = reqlib("/models/UserModel");
 const { PathParams, QueryParams } = reqlib("config");
 
 /**
@@ -21,9 +22,15 @@ exports.health = (req, res) => {
 
 exports.createEvent = asyncHandler(async (req, res) => {
   let toSaveEvent = req.body;
-  let savedEvent;
+  let { userData } = req.locals;
+  if (!userData) throw createError(500, "User required to create an event");
+  toSaveEvent.eventCreatedBy = userData.id;
   try {
     savedEvent = await EventModel.insert(toSaveEvent);
+    savedUser = await UserModel.addToCreatedEvents(userData.id, {
+      eventType: savedEvent.eventType,
+      eventId: savedEvent._id,
+    });
   } catch (e) {
     if (e.errors && e.errors.name)
       throw createError(500, e.errors.name.message);
@@ -40,7 +47,15 @@ exports.createEvent = asyncHandler(async (req, res) => {
 exports.deleteEvent = asyncHandler(async (req, res) => {
   //will receive a valid object id from the middleware
   const eventId = req.params[PathParams.EVENT_ID];
+  let { userData } = req.locals;
+
   const response = await EventModel.delete(eventId);
+  if (userData && response) {
+    await UserModel.deleteFromCreatedEvents(userData.id, {
+      eventType: response.eventType,
+      eventId: eventId,
+    });
+  }
   let responseMessage = `No event with id: ${eventId} found`;
   if (response)
     responseMessage = `Successfully deleted event with id: ${eventId}`;
@@ -72,7 +87,9 @@ exports.updateEvent = asyncHandler(async (req, res) => {
 exports.getEvent = asyncHandler(async (req, res) => {
   //will receive a valid object id from the middleware
   const eventId = req.params[PathParams.EVENT_ID];
-  const eventObject = await EventModel.findById(eventId);
+  const eventObject = await EventModel.findById(eventId).populate(
+    "eventCreatedBy"
+  );
   let responseMessage = `No event with id: ${eventId} found`;
   if (eventObject) responseMessage = "Fetched event successfully";
   return createOkResponse(res, responseMessage, eventObject);

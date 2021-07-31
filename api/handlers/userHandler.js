@@ -36,6 +36,9 @@ exports.health = (req, res) => {
 
 exports.createUser = asyncHandler(async (req, res) => {
   let toSaveUser = req.body;
+  const { userFirebaseId } = req.locals;
+  console.log("User firebase id", userFirebaseId);
+  toSaveUser.userFirebaseId = userFirebaseId;
   let savedUser;
   try {
     savedUser = await UserModel.insert(toSaveUser);

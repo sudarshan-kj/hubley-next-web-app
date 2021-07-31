@@ -41,9 +41,11 @@ let eventSchema = new Schema(
     eventRegistrations: {
       type: Object,
     },
+    eventPlatform: { type: String },
+    eventLink: { type: String },
     eventCreatedBy: {
-      userName: String,
-      userId: String,
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   opts

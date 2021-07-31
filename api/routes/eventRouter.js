@@ -34,6 +34,7 @@ HTTP POST Requests
 
 eventRouter.post("/create", [
   EventValidationMiddleware.validateInputFields,
+  EventValidationMiddleware.getFirebaseUserIdData,
   eventHandler.createEvent,
 ]);
 
@@ -49,6 +50,7 @@ HTTP DELETE REQUESTS
 
 eventRouter.delete(`/:${PathParams.EVENT_ID}`, [
   UtilsMiddleware.validatePathParams([ValidateEventIdPathParam]),
+  EventValidationMiddleware.getFirebaseUserIdData,
   eventHandler.deleteEvent,
 ]);
 

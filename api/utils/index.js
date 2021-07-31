@@ -14,7 +14,7 @@ exports.attachVars = (req, object) => {
 
 exports.nextWithVars = (req, next, object) => {
   req.locals = { ...req.locals, ...object };
-  next();
+  return next();
 };
 
 exports.isValidNumber = (value) => {

@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const createError = require("http-errors");
+const { decode } = require("punycode");
 const { nextWithVars } = reqlib("utils");
 const TemplateParser = reqlib("lib/template/templateParser");
 const { templateInputDataSchema } = reqlib("utils/joiValidator");
@@ -15,7 +16,7 @@ exports.isAuthenticated = asyncHandler(async (req, res, next) => {
     try {
       const decodedToken = await firebaseAuth.verifyIdToken(idToken);
       console.log("Decoded token is", decodedToken);
-      return next();
+      return nextWithVars(req, next, { userFirebaseId: decodedToken.uid });
     } catch (e) {
       throw createError(403, "Unauthenticated");
     }

@@ -3,5 +3,4 @@ export interface UserEntity extends Record<string, any> {
   id?: string;
   userName: string;
   userEmail: string;
-  userFirebaseId: string;
 }
